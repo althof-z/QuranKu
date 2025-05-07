@@ -5,13 +5,14 @@ import android.content.pm.PackageManager
 import android.media.MediaRecorder
 import android.os.Bundle
 import android.os.Environment
-import androidx.fragment.app.Fragment
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import com.example.quranku.databinding.FragmentHomeBinding
 import java.io.File
 import java.io.IOException
@@ -26,48 +27,64 @@ class HomeFragment : Fragment() {
     private var isRecorded = false
 
     private val RECORD_AUDIO_REQUEST_CODE = 200
+    private var startTime = 0L
+    private val timerHandler = Handler()
+    private val timerRunnable = object : Runnable {
+        override fun run() {
+            val elapsed = System.currentTimeMillis() - startTime
+            val minutes = (elapsed / 1000 / 60).toInt()
+            val seconds = (elapsed / 1000 % 60).toInt()
+            binding.tvTimer.text = String.format("%02d:%02d", minutes, seconds)
+            timerHandler.postDelayed(this, 1000)
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
-
-        setupUI()
-
+        setupListeners()
+        updateUI("Status: Idle", R.drawable.ic_mic)
         return binding.root
     }
 
-    private fun setupUI() {
-        binding.btnRecord.setOnClickListener {
+    private fun setupListeners() = binding.run {
+        btnRecord.setOnClickListener {
             if (checkPermissions()) {
-                if (!isRecording) {
-                    startRecording()
-                } else {
-                    stopRecording()
-                }
+                if (!isRecording) startRecording() else stopRecording()
             }
         }
 
-        binding.btnSave.setOnClickListener {
+        btnSave.setOnClickListener {
+            if (isRecording) stopRecording() // Stop before saving
             if (isRecorded) {
-                Toast.makeText(requireContext(), "Recording saved: $outputFile", Toast.LENGTH_SHORT).show()
+                showToast("Recording saved: $outputFile")
                 resetRecorder()
             } else {
-                Toast.makeText(requireContext(), "No recording to save", Toast.LENGTH_SHORT).show()
+                showToast("No recording to save")
             }
         }
 
-        binding.btnDiscard.setOnClickListener {
-            discardRecording()
+        btnDiscard.setOnClickListener {
+           discardRecording()
         }
     }
 
-    private fun startRecording() {
-        val dir = requireContext().getExternalFilesDir(Environment.DIRECTORY_MUSIC)
-        if (dir != null && !dir.exists()) {
-            dir.mkdirs()
+    private fun discardRecording(){
+        if (isRecording) stopRecording() // Stop before discard
+        if (isRecorded) {
+            File(outputFile).takeIf { it.exists() }?.delete()
+            showToast("Recording discarded")
+            resetRecorder()
+        } else {
+            showToast("No recording to discard")
         }
+    }
+
+
+    private fun startRecording() {
+        val dir = requireContext().getExternalFilesDir(Environment.DIRECTORY_MUSIC)?.apply { mkdirs() }
 
         outputFile = "${dir?.absolutePath}/recording_${System.currentTimeMillis()}.wav"
 
@@ -79,13 +96,14 @@ class HomeFragment : Fragment() {
             try {
                 prepare()
                 start()
+                startTime = System.currentTimeMillis()
+                timerHandler.post(timerRunnable)
                 isRecording = true
                 isRecorded = false
-                binding.tvStatus.text = "Recording..."
-                binding.btnRecord.setBackgroundResource(R.drawable.ic_stop)
+                updateUI("Recording...", R.drawable.ic_stop)
             } catch (e: IOException) {
+                showToast("Failed to start recording")
                 e.printStackTrace()
-                Toast.makeText(requireContext(), "Failed to start recording", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -96,58 +114,64 @@ class HomeFragment : Fragment() {
             release()
         }
         mediaRecorder = null
+        timerHandler.removeCallbacks(timerRunnable)
         isRecording = false
         isRecorded = true
-        binding.tvStatus.text = "Recording Stopped"
-        binding.btnRecord.setBackgroundResource(R.drawable.ic_record)
-    }
-
-    private fun discardRecording() {
-        if (isRecorded) {
-            val file = File(outputFile)
-            if (file.exists()) {
-                file.delete()
-            }
-            Toast.makeText(requireContext(), "Recording discarded", Toast.LENGTH_SHORT).show()
-            resetRecorder()
-        } else {
-            Toast.makeText(requireContext(), "No recording to discard", Toast.LENGTH_SHORT).show()
-        }
+        updateUI("Recording Stopped", R.drawable.ic_mic)
     }
 
     private fun resetRecorder() {
+        isRecording = false
         isRecorded = false
         outputFile = ""
-        binding.tvStatus.text = "Status: Idle"
+        timerHandler.removeCallbacks(timerRunnable)
+        binding.tvTimer.text = "00:00"
+        updateUI("Status: Idle", R.drawable.ic_mic)
     }
 
+
+    private fun updateUI(status: String, iconRes: Int) {
+        binding.tvStatus.text = status
+        binding.btnRecord.setBackgroundResource(iconRes)
+
+        val showSaveDiscard = isRecording || isRecorded
+        binding.btnSave.visibility = if (showSaveDiscard) View.VISIBLE else View.GONE
+        binding.btnDiscard.visibility = if (showSaveDiscard) View.VISIBLE else View.GONE
+    }
+
+
     private fun checkPermissions(): Boolean {
-        if (ContextCompat.checkSelfPermission(
-                requireContext(),
-                Manifest.permission.RECORD_AUDIO
+        return if (ContextCompat.checkSelfPermission(
+                requireContext(), Manifest.permission.RECORD_AUDIO
             ) != PackageManager.PERMISSION_GRANTED
         ) {
             ActivityCompat.requestPermissions(
-                requireActivity(),
-                arrayOf(Manifest.permission.RECORD_AUDIO),
-                RECORD_AUDIO_REQUEST_CODE
+                requireActivity(), arrayOf(Manifest.permission.RECORD_AUDIO), RECORD_AUDIO_REQUEST_CODE
             )
-            return false
-        }
-        return true
+            false
+        } else true
     }
 
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<String>,
-        grantResults: IntArray
-    ) {
+    private fun showToast(message: String) {
+        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
         if (requestCode == RECORD_AUDIO_REQUEST_CODE) {
-            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(requireContext(), "Permission Granted", Toast.LENGTH_SHORT).show()
+            val msg = if (grantResults.firstOrNull() == PackageManager.PERMISSION_GRANTED) {
+                "Permission Granted"
             } else {
-                Toast.makeText(requireContext(), "Permission Denied", Toast.LENGTH_SHORT).show()
+                "Permission Denied"
             }
+            showToast(msg)
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        if (isRecording) {
+            stopRecording()
+            discardRecording()
         }
     }
 

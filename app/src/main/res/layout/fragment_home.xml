@@ -16,6 +16,28 @@
         android:text="Status: Idle"
         android:textSize="20sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/iv_surah"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/iv_surah"
+        android:layout_width="340dp"
+        android:layout_height="87dp"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/surah"
+        app:layout_constraintBottom_toTopOf="@+id/tvTimer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/tvTimer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="24dp"
+        android:text="00:00"
+        android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/btn_record"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -36,25 +58,23 @@
     <!-- Tombol Discard -->
     <Button
         android:id="@+id/btn_discard"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="Discard"
-        app:layout_constraintEnd_toStartOf="@id/btn_save"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btn_record"
-        app:layout_constraintWidth_percent="0.45" />
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/ic_cancel"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_record"
+        app:layout_constraintEnd_toStartOf="@+id/btn_record"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <!-- Tombol Save -->
     <Button
         android:id="@+id/btn_save"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="Save"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/ic_check"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_record"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/btn_discard"
-        app:layout_constraintTop_toBottomOf="@id/btn_record"
-        app:layout_constraintWidth_percent="0.45" />
+        app:layout_constraintStart_toEndOf="@+id/btn_record" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
