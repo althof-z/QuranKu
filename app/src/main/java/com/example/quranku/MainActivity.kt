@@ -32,6 +32,10 @@ class MainActivity : AppCompatActivity() {
                     replaceFragment(HistoryFragment())
                     true
                 }
+                R.id.nav_info ->{
+                    replaceFragment(InfoFragment())
+                    true
+                }
                 else -> false
             }
         }
