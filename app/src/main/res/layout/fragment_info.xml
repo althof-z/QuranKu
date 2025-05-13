@@ -1,14 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".InfoFragment">
+    android:padding="16dp">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:id="@+id/title_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="24sp"
+        android:text="Iris Flower Prediction"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-</FrameLayout>
+    <EditText
+        android:id="@+id/input_sepal_length"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Sepal Length (cm)"
+        android:inputType="numberDecimal"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title_text" />
+
+    <EditText
+        android:id="@+id/input_sepal_width"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Sepal Width (cm)"
+        android:inputType="numberDecimal"
+        app:layout_constraintTop_toBottomOf="@id/input_sepal_length"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp" />
+
+    <EditText
+        android:id="@+id/input_petal_length"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Petal Length (cm)"
+        android:inputType="numberDecimal"
+        app:layout_constraintTop_toBottomOf="@id/input_sepal_width"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp" />
+
+    <EditText
+        android:id="@+id/input_petal_width"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Petal Width (cm)"
+        android:inputType="numberDecimal"
+        app:layout_constraintTop_toBottomOf="@id/input_petal_length"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp" />
+
+    <Button
+        android:id="@+id/btn_predict"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Predict"
+        app:layout_constraintTop_toBottomOf="@id/input_petal_width"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp" />
+
+    <TextView
+        android:id="@+id/text_result"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Prediction will appear here"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:paddingTop="8dp"
+        app:layout_constraintTop_toBottomOf="@id/btn_predict"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
