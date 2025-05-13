@@ -2,4 +2,21 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!-- Primary color scheme -->
+    <color name="color_primary">#6D9773</color>             <!-- Olive Green -->
+    <color name="color_primary_dark">#0C3B2E</color>        <!-- Dark Green -->
+
+    <!-- Accent / Secondary -->
+    <color name="color_secondary">#BB8A52</color>           <!-- Golden Brown -->
+    <color name="color_accent">#FFBA00</color>              <!-- Bright Yellow -->
+
+    <!-- Optional semantic aliases -->
+    <color name="color_background_dark">#0C3B2E</color>
+    <color name="color_warning">#FFBA00</color>
+
+    <color name="bottom_nav_background">#0C3B2E</color> <!-- Dark Green -->
+
+
+
 </resources>

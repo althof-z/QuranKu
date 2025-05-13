@@ -2,13 +2,16 @@ package com.example.quranku
 
 import android.Manifest
 import android.content.pm.PackageManager
+import android.media.MediaPlayer
 import android.media.MediaRecorder
 import android.os.Bundle
 import android.os.Environment
 import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SeekBar
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -34,10 +37,31 @@ class HomeFragment : Fragment() {
             val elapsed = System.currentTimeMillis() - startTime
             val minutes = (elapsed / 1000 / 60).toInt()
             val seconds = (elapsed / 1000 % 60).toInt()
-            binding.tvTimer.text = String.format("%02d:%02d", minutes, seconds)
-            timerHandler.postDelayed(this, 1000)
+            val milliseconds = ((elapsed % 1000) / 10).toInt() // dua digit
+
+            binding.tvTimer.text = if (minutes > 0) {
+                String.format("%02d:%02d.%02d", minutes, seconds, milliseconds)
+            } else {
+                String.format("%02d.%02d", seconds, milliseconds)
+            }
+
+            timerHandler.postDelayed(this, 50) // update setiap 50ms agar milidetik lebih halus
+        }
+
+    }
+    private var mediaPlayer: MediaPlayer? = null
+    private val updateSeekbarHandler = Handler(Looper.getMainLooper())
+    private val updateSeekbarRunnable = object : Runnable {
+        override fun run() {
+            mediaPlayer?.let {
+                if (it.isPlaying) {
+                    binding.seekBar.progress = it.currentPosition
+                    updateSeekbarHandler.postDelayed(this, 50)
+                }
+            }
         }
     }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -50,6 +74,37 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupListeners() = binding.run {
+        btnPlaySurah.setOnClickListener {
+            if (mediaPlayer == null) {
+                mediaPlayer = MediaPlayer.create(requireContext(), R.raw.surahsound)
+                mediaPlayer?.setOnPreparedListener {
+                    binding.seekBar.max = it.duration
+                    it.start()
+                    updateSeekbarHandler.post(updateSeekbarRunnable)
+                }
+                mediaPlayer?.setOnCompletionListener {
+                    updateSeekbarHandler.removeCallbacks(updateSeekbarRunnable)
+                }
+            } else if (mediaPlayer?.isPlaying == true) {
+                mediaPlayer?.pause()
+                btnPlaySurah.setBackgroundResource(R.drawable.ic_pause)
+            } else {
+                mediaPlayer?.start()
+                updateSeekbarHandler.post(updateSeekbarRunnable)
+            }
+        }
+
+        seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                if (fromUser) {
+                    mediaPlayer?.seekTo(progress)
+                }
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {}
+        })
+
         btnRecord.setOnClickListener {
             if (checkPermissions()) {
                 if (!isRecording) startRecording() else stopRecording()
@@ -177,6 +232,13 @@ class HomeFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        mediaRecorder?.release()
+        mediaRecorder = null
+
+        mediaPlayer?.release()
+        mediaPlayer = null
+
+        updateSeekbarHandler.removeCallbacks(updateSeekbarRunnable)
         _binding = null
     }
 }

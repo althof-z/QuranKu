@@ -4,8 +4,6 @@ import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import com.example.quranku.databinding.ActivityMainBinding
 
@@ -19,7 +17,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         // Set default fragment
-        replaceFragment(HomeFragment())
+        if (savedInstanceState == null) {
+            replaceFragment(HomeFragment())
+            binding.bottomNav.selectedItemId = R.id.nav_home // ✅ ensure Home is selected
+        }
 
         // Set listener untuk bottom navigation
         binding.bottomNav.setOnItemSelectedListener { item ->
@@ -32,7 +33,7 @@ class MainActivity : AppCompatActivity() {
                     replaceFragment(HistoryFragment())
                     true
                 }
-                R.id.nav_info ->{
+                R.id.nav_info -> {
                     replaceFragment(InfoFragment())
                     true
                 }

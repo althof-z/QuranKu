@@ -4,7 +4,36 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="24dp">
+    android:background="@color/color_primary">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/iv_shadow"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:alpha="0.1"
+        android:background="@color/material_dynamic_neutral40"
+        android:contentDescription="Background"
+        android:outlineSpotShadowColor="@color/black"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.458"
+        app:layout_constraintStart_toStartOf="parent"
+        app:shapeAppearanceOverlay="@style/RoundedTopShade" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/iv_main"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/white"
+        android:contentDescription="Background"
+        android:outlineSpotShadowColor="@color/black"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.55"
+        app:layout_constraintStart_toStartOf="parent"
+        app:shapeAppearanceOverlay="@style/RoundedTop" />
 
 
     <!-- Status Rekaman -->
@@ -14,6 +43,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
         android:text="Status: Idle"
+        android:textColor="@color/white"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/iv_surah"
@@ -24,11 +54,35 @@
         android:id="@+id/iv_surah"
         android:layout_width="340dp"
         android:layout_height="87dp"
-        android:layout_marginBottom="24dp"
-        android:background="@drawable/surah"
-        app:layout_constraintBottom_toTopOf="@+id/tvTimer"
+        android:layout_marginTop="128dp"
+        android:background="@drawable/surah_white"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- SeekBar untuk progress audio -->
+
+    <SeekBar
+        android:id="@+id/seekBar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:progressBackgroundTint="@color/black"
+        android:progressTint="@color/white"
+        android:thumbTint="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_PlaySurah"
+        app:layout_constraintEnd_toEndOf="@+id/iv_surah"
+        app:layout_constraintStart_toEndOf="@+id/btn_PlaySurah"
+        app:layout_constraintTop_toTopOf="@+id/btn_PlaySurah" />
+
+    <ImageButton
+        android:id="@+id/btn_PlaySurah"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/ic_record"
+        android:backgroundTint="@color/white"
+        app:layout_constraintStart_toStartOf="@+id/iv_surah"
+        app:layout_constraintTop_toBottomOf="@+id/iv_surah" />
 
     <TextView
         android:id="@+id/tvTimer"
@@ -44,37 +98,39 @@
 
 
     <!-- Tombol Record/Stop -->
-    <Button
+    <ImageButton
         android:id="@+id/btn_record"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginBottom="64dp"
         android:background="@drawable/ic_mic"
+        android:backgroundTint="@color/color_secondary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <!-- Tombol Discard -->
-    <Button
-        android:id="@+id/btn_discard"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
-        android:layout_marginBottom="8dp"
-        android:background="@drawable/ic_cancel"
-        app:layout_constraintBottom_toBottomOf="@+id/btn_record"
-        app:layout_constraintEnd_toStartOf="@+id/btn_record"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <!-- Tombol Save -->
-    <Button
-        android:id="@+id/btn_save"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
-        android:layout_marginBottom="8dp"
-        android:background="@drawable/ic_check"
+    <!-- Tombol Discard -->
+    <ImageButton
+        android:id="@+id/btn_discard"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/ic_cancel"
+        android:backgroundTint="@color/material_dynamic_neutral50"
         app:layout_constraintBottom_toBottomOf="@+id/btn_record"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btn_record" />
+
+    <!-- Tombol Save -->
+    <ImageButton
+        android:id="@+id/btn_save"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/ic_check"
+        android:backgroundTint="@color/material_dynamic_neutral50"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_record"
         app:layout_constraintStart_toEndOf="@+id/btn_record" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
