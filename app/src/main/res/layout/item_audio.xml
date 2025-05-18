@@ -51,11 +51,13 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_audio_duration" />
 
     <!-- Tombol Delete -->
-    <Button
+    <ImageButton
         android:id="@+id/btn_delete"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="34dp"
+        android:layout_height="34dp"
         android:text="Delete"
+        android:background="@drawable/ic_trash"
+        android:backgroundTint="@color/material_dynamic_neutral70"
         app:layout_constraintTop_toBottomOf="@id/seekBar"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="8dp"/>

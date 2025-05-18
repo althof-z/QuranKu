@@ -8,4 +8,7 @@
         <item name="cornerSizeTopLeft">8%</item>
         <item name="cornerSizeTopRight">8%</item>
     </style>
+    <style name="App.Custom.Indicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
+        <item name="android:color">@color/material_dynamic_neutral80</item>
+    </style>
 </resources>

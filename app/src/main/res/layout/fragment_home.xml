@@ -6,6 +6,14 @@
     android:layout_height="match_parent"
     android:background="@color/color_primary">
 
+    <ImageView
+        android:layout_width="500dp"
+        android:layout_height="401dp"
+        android:alpha="0.1"
+        android:background="@drawable/texture"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/iv_shadow"
         android:layout_width="0dp"
@@ -17,9 +25,10 @@
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.458"
+        app:layout_constraintHeight_percent="0.557"
         app:layout_constraintStart_toStartOf="parent"
         app:shapeAppearanceOverlay="@style/RoundedTopShade" />
+
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/iv_main"
@@ -35,14 +44,37 @@
         app:layout_constraintStart_toStartOf="parent"
         app:shapeAppearanceOverlay="@style/RoundedTop" />
 
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="410dp"
+        android:layout_height="102dp"
+        android:background="@drawable/dummy_wave"
+        app:layout_constraintBottom_toTopOf="@+id/tvTimer"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <!-- Status Rekaman -->
 
     <!-- Status Rekaman -->
     <TextView
         android:id="@+id/tv_status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="16dp"
         android:text="Status: Idle"
+        android:textColor="@color/material_dynamic_neutral50"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/imageView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_Surah"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="Surah Al-Maidah 109"
         android:textColor="@color/white"
         android:textSize="20sp"
         android:textStyle="bold"
