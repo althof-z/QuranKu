@@ -2,7 +2,6 @@ package com.example.quranku
 
 import android.Manifest
 import android.content.pm.PackageManager
-import android.media.MediaPlayer
 import android.media.MediaRecorder
 import android.os.Bundle
 import android.os.Environment
@@ -17,6 +16,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.quranku.databinding.FragmentHomeBinding
+import com.example.quranku.AudioPlayerHelper
 import java.io.File
 import java.io.IOException
 
@@ -37,7 +37,7 @@ class HomeFragment : Fragment() {
             val elapsed = System.currentTimeMillis() - startTime
             val minutes = (elapsed / 1000 / 60).toInt()
             val seconds = (elapsed / 1000 % 60).toInt()
-            val milliseconds = ((elapsed % 1000) / 10).toInt() // dua digit
+            val milliseconds = ((elapsed % 1000) / 10).toInt()
 
             binding.tvTimer.text = if (minutes > 0) {
                 String.format("%02d:%02d.%02d", minutes, seconds, milliseconds)
@@ -45,29 +45,18 @@ class HomeFragment : Fragment() {
                 String.format("%02d.%02d", seconds, milliseconds)
             }
 
-            timerHandler.postDelayed(this, 50) // update setiap 50ms agar milidetik lebih halus
-        }
-
-    }
-    private var mediaPlayer: MediaPlayer? = null
-    private val updateSeekbarHandler = Handler(Looper.getMainLooper())
-    private val updateSeekbarRunnable = object : Runnable {
-        override fun run() {
-            mediaPlayer?.let {
-                if (it.isPlaying) {
-                    binding.seekBar.progress = it.currentPosition
-                    updateSeekbarHandler.postDelayed(this, 50)
-                }
-            }
+            timerHandler.postDelayed(this, 50)
         }
     }
 
+    private lateinit var audioPlayerHelper: AudioPlayerHelper
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        audioPlayerHelper = AudioPlayerHelper(requireContext(), binding.seekBar, binding.btnPlaySurah)
         setupListeners()
         updateUI("Status: Idle", R.drawable.ic_mic)
         return binding.root
@@ -75,35 +64,8 @@ class HomeFragment : Fragment() {
 
     private fun setupListeners() = binding.run {
         btnPlaySurah.setOnClickListener {
-            if (mediaPlayer == null) {
-                mediaPlayer = MediaPlayer.create(requireContext(), R.raw.surahsound)
-                mediaPlayer?.setOnPreparedListener {
-                    binding.seekBar.max = it.duration
-                    it.start()
-                    updateSeekbarHandler.post(updateSeekbarRunnable)
-                }
-                mediaPlayer?.setOnCompletionListener {
-                    updateSeekbarHandler.removeCallbacks(updateSeekbarRunnable)
-                }
-            } else if (mediaPlayer?.isPlaying == true) {
-                mediaPlayer?.pause()
-                btnPlaySurah.setBackgroundResource(R.drawable.ic_pause)
-            } else {
-                mediaPlayer?.start()
-                updateSeekbarHandler.post(updateSeekbarRunnable)
-            }
+            audioPlayerHelper.togglePlayPause(R.raw.surahsound)
         }
-
-        seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
-            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                if (fromUser) {
-                    mediaPlayer?.seekTo(progress)
-                }
-            }
-
-            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
-            override fun onStopTrackingTouch(seekBar: SeekBar?) {}
-        })
 
         btnRecord.setOnClickListener {
             if (checkPermissions()) {
@@ -112,7 +74,7 @@ class HomeFragment : Fragment() {
         }
 
         btnSave.setOnClickListener {
-            if (isRecording) stopRecording() // Stop before saving
+            if (isRecording) stopRecording()
             if (isRecorded) {
                 showToast("Recording saved: $outputFile")
                 resetRecorder()
@@ -122,21 +84,9 @@ class HomeFragment : Fragment() {
         }
 
         btnDiscard.setOnClickListener {
-           discardRecording()
+            discardRecording()
         }
     }
-
-    private fun discardRecording(){
-        if (isRecording) stopRecording() // Stop before discard
-        if (isRecorded) {
-            File(outputFile).takeIf { it.exists() }?.delete()
-            showToast("Recording discarded")
-            resetRecorder()
-        } else {
-            showToast("No recording to discard")
-        }
-    }
-
 
     private fun startRecording() {
         val dir = requireContext().getExternalFilesDir(Environment.DIRECTORY_MUSIC)?.apply { mkdirs() }
@@ -175,6 +125,17 @@ class HomeFragment : Fragment() {
         updateUI("Recording Stopped", R.drawable.ic_mic)
     }
 
+    private fun discardRecording() {
+        if (isRecording) stopRecording()
+        if (isRecorded) {
+            File(outputFile).takeIf { it.exists() }?.delete()
+            showToast("Recording discarded")
+            resetRecorder()
+        } else {
+            showToast("No recording to discard")
+        }
+    }
+
     private fun resetRecorder() {
         isRecording = false
         isRecorded = false
@@ -184,7 +145,6 @@ class HomeFragment : Fragment() {
         updateUI("Status: Idle", R.drawable.ic_mic)
     }
 
-
     private fun updateUI(status: String, iconRes: Int) {
         binding.tvStatus.text = status
         binding.btnRecord.setBackgroundResource(iconRes)
@@ -193,7 +153,6 @@ class HomeFragment : Fragment() {
         binding.btnSave.visibility = if (showSaveDiscard) View.VISIBLE else View.GONE
         binding.btnDiscard.visibility = if (showSaveDiscard) View.VISIBLE else View.GONE
     }
-
 
     private fun checkPermissions(): Boolean {
         return if (ContextCompat.checkSelfPermission(
@@ -234,11 +193,7 @@ class HomeFragment : Fragment() {
         super.onDestroyView()
         mediaRecorder?.release()
         mediaRecorder = null
-
-        mediaPlayer?.release()
-        mediaPlayer = null
-
-        updateSeekbarHandler.removeCallbacks(updateSeekbarRunnable)
+        audioPlayerHelper.release()
         _binding = null
     }
 }
