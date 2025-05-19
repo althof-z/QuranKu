@@ -1,64 +1,104 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="16dp">
+    android:layout_marginTop="8dp"
+    android:layout_marginBottom="8dp"
+    android:layout_marginEnd="16dp"
+    android:layout_marginStart="16dp"
+    app:cardElevation="8dp"
+    app:cardCornerRadius="12dp"
+    app:cardBackgroundColor="@color/white"
+    app:strokeColor="@android:color/transparent">
 
-    <!-- Nama File Rekaman -->
-    <TextView
-        android:id="@+id/tv_audio_title"
-        android:layout_width="0dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Audio File"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:padding="16dp">
 
-    <!-- Durasi Audio -->
-    <TextView
-        android:id="@+id/tv_audio_duration"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="00:00"
-        android:textSize="14sp"
-        app:layout_constraintTop_toBottomOf="@id/tv_audio_title"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="8dp"/>
+        <!-- Nama File Rekaman -->
+        <TextView
+            android:id="@+id/tv_audio_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Audio File"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- SeekBar untuk progress audio -->
-    <SeekBar
-        android:id="@+id/seekBar"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/btn_Play"
-        app:layout_constraintTop_toBottomOf="@id/tv_audio_duration" />
+        <!-- Durasi Audio -->
+        <TextView
+            android:id="@+id/tv_audio_duration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="00:00"
+            android:textSize="14sp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@id/tv_audio_title"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
 
-    <!-- Tombol Play -->
-    <ImageButton
-        android:id="@+id/btn_Play"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:background="@drawable/ic_play"
-        android:backgroundTint="@color/material_dynamic_neutral50"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_audio_duration" />
+        <!-- Tombol Play -->
+        <ImageButton
+            android:id="@+id/btn_Play"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/ic_play"
+            android:backgroundTint="@color/material_dynamic_neutral50"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_audio_duration" />
 
-    <!-- Tombol Delete -->
-    <ImageButton
-        android:id="@+id/btn_delete"
-        android:layout_width="34dp"
-        android:layout_height="34dp"
-        android:text="Delete"
-        android:background="@drawable/ic_trash"
-        android:backgroundTint="@color/material_dynamic_neutral70"
-        app:layout_constraintTop_toBottomOf="@id/seekBar"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="8dp"/>
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <!-- SeekBar -->
+        <SeekBar
+            android:id="@+id/seekBar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/btn_Play"
+            app:layout_constraintTop_toBottomOf="@id/tv_audio_duration" />
+
+        <TextView
+            android:id="@+id/tv_mad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:textStyle="bold"
+            android:text="Mad: -"
+            app:layout_constraintStart_toStartOf="@+id/btn_Play"
+            app:layout_constraintTop_toBottomOf="@+id/btn_Play" />
+        <TextView
+            android:id="@+id/tv_idgham"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textStyle="bold"
+            android:text="Idgham: -"
+            app:layout_constraintStart_toStartOf="@+id/btn_Play"
+            app:layout_constraintTop_toBottomOf="@+id/tv_mad" />
+        <TextView
+            android:id="@+id/tv_ikhfa"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textStyle="bold"
+            android:text="Ikhfa: -"
+            app:layout_constraintStart_toStartOf="@+id/btn_Play"
+            app:layout_constraintTop_toBottomOf="@+id/tv_idgham" />
+        <!-- Tombol Delete -->
+        <ImageButton
+            android:id="@+id/btn_delete"
+            android:layout_width="34dp"
+            android:layout_height="34dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/ic_trash"
+            android:backgroundTint="@color/material_dynamic_neutral70"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>
