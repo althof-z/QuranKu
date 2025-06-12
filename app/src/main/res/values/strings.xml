@@ -2,4 +2,5 @@
     <string name="app_name">QuranKu</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="app_desc">QuranKu adalah aplikasi Android yang membantu kamu belajar membaca Al-Qur’an sesuai tajwid. Dengan teknologi pengenalan suara, aplikasi ini bisa mendeteksi kesalahan bacaan dan memberi umpan balik secara otomatis. QuranKu menggunakan metode MFCC dan SVM untuk mengenali suara pengguna. \n\nAplikasi ini dibuat sebagai bagian dari proyek skripsi di Institut Teknologi Perusahaan Listrik Negara (IT-PLN), dengan harapan bisa menjadi alat bantu belajar sekaligus amal jariyah digital. \n\nYuk, tingkatkan bacaan Al-Qur’an kamu bareng QuranKu!</string>
 </resources>
