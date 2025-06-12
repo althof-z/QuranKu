@@ -11,4 +11,9 @@
     <style name="App.Custom.Indicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
         <item name="android:color">@color/material_dynamic_neutral80</item>
     </style>
+    <style name="TitleText">
+        <item name="android:textSize">20sp</item> <!-- Title size -->
+        <item name="android:textStyle">bold</item> <!-- Bold -->
+        <item name="android:textColor">@color/color_primary_dark</item> <!-- Optional -->
+    </style>
 </resources>

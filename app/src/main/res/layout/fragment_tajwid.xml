@@ -1,16 +1,151 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".TajwidFragment"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".AppTutorialFragment"
     android:background="@color/white">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:id="@+id/tv_title_idg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
         android:gravity="center"
-        android:text="@string/hello_blank_fragment" />
+        style="@style/TitleText"
+        android:text="Idgham"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-</FrameLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/containerAyat"
+        android:layout_width="360dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/card_edge"
+        android:padding="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.686"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_title_idg">
+
+        <TextView
+            android:id="@+id/tv_tutorial"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ketika nun mati ketemu huruf idgham"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_surah"
+            android:layout_width="340dp"
+            android:layout_height="87dp"
+            android:layout_marginTop="28dp"
+            android:background="@drawable/surah"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- SeekBar untuk progress audio -->
+
+        <SeekBar
+            android:id="@+id/sb_idg1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:progressBackgroundTint="@color/material_dynamic_neutral50"
+            android:progressTint="@color/black"
+            android:thumbTint="@color/black"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_PlaySurah"
+            app:layout_constraintEnd_toEndOf="@+id/iv_surah"
+            app:layout_constraintStart_toEndOf="@+id/btn_PlaySurah"
+            app:layout_constraintTop_toTopOf="@+id/btn_PlaySurah" />
+
+        <ImageButton
+            android:id="@+id/btn_PlaySurah"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/ic_play"
+            android:backgroundTint="@color/material_dynamic_neutral50"
+            app:layout_constraintStart_toStartOf="@+id/iv_surah"
+            app:layout_constraintTop_toBottomOf="@+id/iv_surah" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/tv_title_ikh"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="32dp"
+        style="@style/TitleText"
+        android:text="Ikhfa"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/containerAyat" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/containerikh"
+        android:layout_width="360dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/card_edge"
+        android:padding="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.686"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_title_ikh">
+
+        <TextView
+            android:id="@+id/tv_ikh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ketika nun mati ketemu huruf ikhfa"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_ikh"
+            android:layout_width="340dp"
+            android:layout_height="87dp"
+            android:layout_marginTop="28dp"
+            android:background="@drawable/surah"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- SeekBar untuk progress audio -->
+
+        <SeekBar
+            android:id="@+id/sb_ikh"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:progressBackgroundTint="@color/material_dynamic_neutral50"
+            android:progressTint="@color/black"
+            android:thumbTint="@color/black"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_Playikh"
+            app:layout_constraintEnd_toEndOf="@+id/iv_ikh"
+            app:layout_constraintStart_toEndOf="@+id/btn_Playikh"
+            app:layout_constraintTop_toTopOf="@+id/btn_Playikh" />
+
+        <ImageButton
+            android:id="@+id/btn_Playikh"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/ic_play"
+            android:backgroundTint="@color/material_dynamic_neutral50"
+            app:layout_constraintStart_toStartOf="@+id/iv_ikh"
+            app:layout_constraintTop_toBottomOf="@+id/iv_ikh" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

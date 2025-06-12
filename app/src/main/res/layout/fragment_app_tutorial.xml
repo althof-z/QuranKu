@@ -12,6 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
+        style="@style/TitleText"
         android:gravity="center"
         android:text="Tutorial Penggunaan Aplikasi"
         app:layout_constraintBottom_toTopOf="@+id/containerAyat"
