@@ -106,13 +106,21 @@
         app:layout_constraintStart_toEndOf="@+id/btn_PlaySurah"
         app:layout_constraintTop_toTopOf="@+id/btn_PlaySurah" />
 
-    <ImageButton
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_PlaySurah"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginTop="24dp"
-        android:background="@drawable/ic_play"
-        android:backgroundTint="@color/white"
+        android:insetLeft="0dp"
+        android:insetTop="0dp"
+        android:insetRight="0dp"
+        android:insetBottom="0dp"
+        app:cornerRadius="24dp"
+        app:icon="@drawable/ic_play"
+        app:iconTint="@color/white"
+        app:iconSize="40dp"
+        app:iconGravity="textStart"
+        app:iconPadding="0dp"
         app:layout_constraintStart_toStartOf="@+id/iv_surah"
         app:layout_constraintTop_toBottomOf="@+id/iv_surah" />
 

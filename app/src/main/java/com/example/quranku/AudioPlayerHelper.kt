@@ -5,13 +5,13 @@ import android.media.MediaPlayer
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
-import android.widget.ImageButton
 import android.widget.SeekBar
+import com.google.android.material.button.MaterialButton
 
 class AudioPlayerHelper(
     private val context: Context,
     private val seekBar: SeekBar,
-    private val playButton: ImageButton
+    private val playButton: MaterialButton
 ) {
     private var mediaPlayer: MediaPlayer? = null
     private val handler = Handler(Looper.getMainLooper())
@@ -60,16 +60,21 @@ class AudioPlayerHelper(
                     seekBar.progress = 0
                     seekTo(0)
                     playButton.setBackgroundResource(R.drawable.ic_play)
+                    playButton.setIconResource(R.drawable.ic_play)
                 }
             }
             playButton.setBackgroundResource(R.drawable.ic_pause)
+            playButton.setIconResource(R.drawable.ic_pause)
         } else if (mediaPlayer?.isPlaying == true) {
             mediaPlayer?.pause()
             playButton.setBackgroundResource(R.drawable.ic_play)
+            playButton.setIconResource(R.drawable.ic_play)
         } else {
             mediaPlayer?.start()
             handler.post(updateSeekbarRunnable)
             playButton.setBackgroundResource(R.drawable.ic_pause)
+            playButton.setIconResource(R.drawable.ic_pause)
+
         }
     }
 

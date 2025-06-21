@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.quranku.databinding.FragmentHistoryBinding
 import java.io.File
 
@@ -18,26 +17,32 @@ class HistoryFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var audioAdapter: AudioAdapter
-    private lateinit var audioPlayerHelper: AudioPlayerHelper
     private var currentHelper: AudioPlayerHelper? = null
+    private var audioFiles: List<File> = emptyList()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentHistoryBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
-        val audioDir = requireContext().getExternalFilesDir(Environment.DIRECTORY_MUSIC)
-        val audioFiles = audioDir?.listFiles { file ->
-            file.extension == "mp3" || file.extension == "wav"
-        }?.toList() ?: emptyList()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setupRecyclerView()
+        loadAudioFiles()
+        updateStatistics()
+    }
 
+    private fun setupRecyclerView() {
         audioAdapter = AudioAdapter(
             requireContext(),
             audioFiles,
             onPlayClicked = { file, seekBar, playButton ->
                 // Stop and release previous audio if playing
                 currentHelper?.release()
+                audioAdapter.stopCurrentPlayback()
 
                 currentHelper = AudioPlayerHelper(requireContext(), seekBar, playButton).also {
                     it.togglePlayPause(file.absolutePath)
@@ -45,9 +50,14 @@ class HistoryFragment : Fragment() {
             },
             onDeleteClicked = { file ->
                 if (file.exists()) {
+                    // Stop playback if this file is currently playing
+                    currentHelper?.release()
+                    audioAdapter.stopCurrentPlayback()
+                    
                     file.delete()
-                    Toast.makeText(requireContext(), "File deleted", Toast.LENGTH_SHORT).show()
-                    refreshAudioList()
+                    Toast.makeText(requireContext(), "Recording deleted", Toast.LENGTH_SHORT).show()
+                    loadAudioFiles()
+                    updateStatistics()
                 }
             }
         )
@@ -56,32 +66,67 @@ class HistoryFragment : Fragment() {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = audioAdapter
         }
-
-        return binding.root
     }
 
-    private fun refreshAudioList() {
+    private fun loadAudioFiles() {
         val audioDir = requireContext().getExternalFilesDir(Environment.DIRECTORY_MUSIC)
-        val updatedFiles = audioDir?.listFiles { file ->
+        audioFiles = audioDir?.listFiles { file ->
             file.extension == "mp3" || file.extension == "wav"
-        }?.toList() ?: emptyList()
+        }?.sortedByDescending { it.lastModified() }?.toList() ?: emptyList()
 
-        audioAdapter = AudioAdapter(
-            requireContext(),
-            updatedFiles,
-            onPlayClicked = { file, seekBar, playButton ->
-                currentHelper?.release()
-                currentHelper = AudioPlayerHelper(requireContext(), seekBar, playButton).also {
-                    it.togglePlayPause(file.absolutePath)
-                }
-            },
-            onDeleteClicked = { fileToDelete ->
-                fileToDelete.delete()
-                Toast.makeText(requireContext(), "File deleted", Toast.LENGTH_SHORT).show()
-                refreshAudioList()
-            }
-        )
-        binding.rvRecordings.adapter = audioAdapter
+        // Update adapter with new files
+        audioAdapter.updateAudioFiles(audioFiles)
+        
+        // Show/hide empty state
+        if (audioFiles.isEmpty()) {
+            binding.emptyState.visibility = View.VISIBLE
+            binding.rvRecordings.visibility = View.GONE
+        } else {
+            binding.emptyState.visibility = View.GONE
+            binding.rvRecordings.visibility = View.VISIBLE
+        }
+    }
+
+    private fun updateStatistics() {
+        // Update total recordings count
+        binding.tvTotalRecordings.text = audioFiles.size.toString()
+
+        // Calculate total duration
+        val totalDuration = audioFiles.sumOf { file ->
+            getAudioDuration(file).toLong()
+        }
+        binding.tvTotalDuration.text = formatDuration(totalDuration.toInt())
+    }
+
+    private fun getAudioDuration(file: File): Int {
+        return try {
+            android.media.MediaPlayer().apply {
+                setDataSource(file.absolutePath)
+                prepare()
+            }.duration
+        } catch (e: Exception) {
+            0
+        }
+    }
+
+    private fun formatDuration(duration: Int): String {
+        val minutes = duration / 1000 / 60
+        val seconds = duration / 1000 % 60
+        return String.format("%02d:%02d", minutes, seconds)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // Refresh the list when returning to the fragment
+        loadAudioFiles()
+        updateStatistics()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        // Stop playback when leaving the fragment
+        currentHelper?.release()
+        audioAdapter.stopCurrentPlayback()
     }
 
     override fun onDestroyView() {

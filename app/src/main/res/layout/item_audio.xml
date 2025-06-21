@@ -4,101 +4,217 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="8dp"
-    android:layout_marginBottom="8dp"
-    android:layout_marginEnd="16dp"
-    android:layout_marginStart="16dp"
-    app:cardElevation="8dp"
-    app:cardCornerRadius="12dp"
+    android:layout_marginHorizontal="4dp"
+    android:layout_marginVertical="6dp"
+    app:cardElevation="2dp"
+    app:cardCornerRadius="16dp"
     app:cardBackgroundColor="@color/white"
-    app:strokeColor="@android:color/transparent">
+    app:strokeColor="#F0F0F0"
+    app:strokeWidth="1dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp">
+        android:padding="20dp">
 
-        <!-- Nama File Rekaman -->
-        <TextView
-            android:id="@+id/tv_audio_title"
+        <!-- File Icon and Title Section -->
+        <LinearLayout
+            android:id="@+id/header_section"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Audio File"
-            android:textSize="18sp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toStartOf="@+id/btn_delete"
+            app:layout_constraintTop_toTopOf="parent">
 
-        <!-- Durasi Audio -->
-        <TextView
-            android:id="@+id/tv_audio_duration"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="00:00"
-            android:textSize="14sp"
-            android:layout_marginTop="8dp"
-            app:layout_constraintTop_toBottomOf="@id/tv_audio_title"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            <!-- Audio File Icon -->
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_mic"
+                android:tint="#8BC34A"
+                android:layout_marginEnd="12dp" />
 
-        <!-- Tombol Play -->
-        <ImageButton
-            android:id="@+id/btn_Play"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:background="@drawable/ic_play"
-            android:backgroundTint="@color/material_dynamic_neutral50"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_audio_duration" />
+            <!-- File Name and Duration -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
 
-        <!-- SeekBar -->
-        <SeekBar
-            android:id="@+id/seekBar"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/btn_Play"
-            app:layout_constraintTop_toBottomOf="@id/tv_audio_duration" />
+                <TextView
+                    android:id="@+id/tv_audio_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Audio File"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/notosans"
+                    android:maxLines="1"
+                    android:ellipsize="end" />
 
-        <TextView
-            android:id="@+id/tv_mad"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:textStyle="bold"
-            android:text="Mad: -"
-            app:layout_constraintStart_toStartOf="@+id/btn_Play"
-            app:layout_constraintTop_toBottomOf="@+id/btn_Play" />
-        <TextView
-            android:id="@+id/tv_idgham"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:textStyle="bold"
-            android:text="Idgham: -"
-            app:layout_constraintStart_toStartOf="@+id/btn_Play"
-            app:layout_constraintTop_toBottomOf="@+id/tv_mad" />
-        <TextView
-            android:id="@+id/tv_ikhfa"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:textStyle="bold"
-            android:text="Ikhfa: -"
-            app:layout_constraintStart_toStartOf="@+id/btn_Play"
-            app:layout_constraintTop_toBottomOf="@+id/tv_idgham" />
-        <!-- Tombol Delete -->
+                <TextView
+                    android:id="@+id/tv_audio_duration"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="00:00"
+                    android:textSize="12sp"
+                    android:textColor="#6C757D"
+                    android:fontFamily="@font/notosans"
+                    android:layout_marginTop="2dp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- Delete Button -->
         <ImageButton
             android:id="@+id/btn_delete"
-            android:layout_width="34dp"
-            android:layout_height="34dp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/ic_trash"
-            android:backgroundTint="@color/material_dynamic_neutral70"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_trash"
+            android:tint="#FF3B30"
+            android:contentDescription="Delete recording"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Audio Player Controls -->
+        <LinearLayout
+            android:id="@+id/player_section"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/header_section">
+
+            <!-- Play/Pause Button -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_Play"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="@drawable/ic_play"/>
+
+            <!-- SeekBar -->
+            <SeekBar
+                android:id="@+id/seekBar"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:progressTint="@color/color_primary_dark"
+                android:thumbTint="@color/color_primary"
+                android:progressBackgroundTint="#E9ECEF" />
+
+        </LinearLayout>
+
+        <!-- Tajwid Analysis Results -->
+        <LinearLayout
+            android:id="@+id/tajwid_section"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/player_section">
+
+            <!-- Section Title -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hasil Prediksi"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="#495057"
+                android:fontFamily="@font/notosans"
+                android:layout_marginBottom="12dp" />
+
+            <!-- Tajwid Results Grid -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <!-- Mad Result -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:background="@drawable/tajwid_result_background"
+                    android:padding="8dp"
+                    android:layout_marginEnd="6dp">
+
+                    <TextView
+                        android:id="@+id/tv_mad"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Mad: -"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        android:textColor="#495057"
+                        android:fontFamily="@font/notosans" />
+
+                </LinearLayout>
+
+                <!-- Idgham Result -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:background="@drawable/tajwid_result_background"
+                    android:padding="8dp"
+                    android:layout_marginHorizontal="3dp">
+
+                    <TextView
+                        android:id="@+id/tv_idgham"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Idgham: -"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        android:textColor="#495057"
+                        android:fontFamily="@font/notosans" />
+
+                </LinearLayout>
+
+                <!-- Ikhfa Result -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:background="@drawable/tajwid_result_background"
+                    android:padding="8dp"
+                    android:layout_marginStart="6dp">
+
+                    <TextView
+                        android:id="@+id/tv_ikhfa"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Ikhfa: -"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        android:textColor="#495057"
+                        android:fontFamily="@font/notosans" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </com.google.android.material.card.MaterialCardView>

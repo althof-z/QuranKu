@@ -2,23 +2,23 @@ package com.example.quranku
 
 import android.content.Context
 import android.media.MediaPlayer
-import android.os.Handler
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.SeekBar
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.quranku.databinding.ItemAudioBinding
+import com.google.android.material.button.MaterialButton
 import java.io.File
-import java.io.IOException
 
 class AudioAdapter(
     private val context: Context,
-    private val audioFiles: List<File>,
-    private val onPlayClicked: (File, SeekBar, ImageButton) -> Unit,
+    private var audioFiles: List<File>,
+    private val onPlayClicked: (File, SeekBar, MaterialButton) -> Unit,
     private val onDeleteClicked: (File) -> Unit
 ) : RecyclerView.Adapter<AudioAdapter.AudioViewHolder>() {
+
+    private var currentlyPlayingPosition = -1
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AudioViewHolder {
         val binding = ItemAudioBinding.inflate(LayoutInflater.from(context), parent, false)
@@ -29,26 +29,77 @@ class AudioAdapter(
         val audioFile = audioFiles[position]
         val binding = holder.binding
 
-        binding.tvAudioTitle.text = audioFile.name
+        // Set file name (remove extension for cleaner display)
+        val fileName = audioFile.nameWithoutExtension
+        binding.tvAudioTitle.text = if (fileName.isNotEmpty()) fileName else "Recording ${position + 1}"
+        
+        // Reset seekbar and play button
         binding.seekBar.progress = 0
-        binding.btnPlay.setBackgroundResource(R.drawable.ic_play)
+        updatePlayButton(binding.btnPlay, false)
 
         // Set audio duration
         val duration = getAudioDuration(audioFile)
         binding.seekBar.max = duration
         binding.tvAudioDuration.text = formatDuration(duration)
 
-        // Play button handled by AudioPlayerHelper via callback
+        // Set tajwid analysis results (placeholder for now)
+        binding.tvMad.text = "Mad: -"
+        binding.tvIdgham.text = "Idgham: -"
+        binding.tvIkhfa.text = "Ikhfa: -"
+
+        // Play button click handler
         binding.btnPlay.setOnClickListener {
-            onPlayClicked(audioFile, binding.seekBar, binding.btnPlay)
+            val currentPosition = holder.getAdapterPosition()
+            if (currentPosition != RecyclerView.NO_POSITION) {
+                if (currentlyPlayingPosition == currentPosition) {
+                    // Stop current playback
+                    currentlyPlayingPosition = -1
+                    updatePlayButton(binding.btnPlay, false)
+                } else {
+                    // Start new playback
+                    currentlyPlayingPosition = currentPosition
+                    updatePlayButton(binding.btnPlay, true)
+                    onPlayClicked(audioFile, binding.seekBar, binding.btnPlay)
+                }
+            }
         }
 
+        // Delete button click handler
         binding.btnDelete.setOnClickListener {
-            onDeleteClicked(audioFile)
+            val currentPosition = holder.getAdapterPosition()
+            if (currentPosition != RecyclerView.NO_POSITION) {
+                onDeleteClicked(audioFile)
+            }
+        }
+
+        // Update visual state based on playing status
+        if (position == currentlyPlayingPosition) {
+            updatePlayButton(binding.btnPlay, true)
+        } else {
+            updatePlayButton(binding.btnPlay, false)
         }
     }
 
     override fun getItemCount(): Int = audioFiles.size
+
+    fun updateAudioFiles(newAudioFiles: List<File>) {
+        audioFiles = newAudioFiles
+        currentlyPlayingPosition = -1 // Reset playing state
+        notifyDataSetChanged()
+    }
+
+    fun stopCurrentPlayback() {
+        currentlyPlayingPosition = -1
+        notifyDataSetChanged()
+    }
+
+    private fun updatePlayButton(button: MaterialButton, isPlaying: Boolean) {
+        if (isPlaying) {
+            button.setBackgroundResource(R.drawable.ic_pause)
+        } else {
+            button.setBackgroundResource(R.drawable.ic_play)
+        }
+    }
 
     private fun getAudioDuration(file: File): Int {
         return try {
