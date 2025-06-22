@@ -1,21 +1,18 @@
 package com.example.quranku
 
 import android.content.Context
-import android.media.MediaPlayer
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.ImageButton
 import android.widget.SeekBar
 import androidx.recyclerview.widget.RecyclerView
 import com.example.quranku.databinding.ItemAudioBinding
 import com.google.android.material.button.MaterialButton
-import java.io.File
 
 class AudioAdapter(
     private val context: Context,
-    private var audioFiles: List<File>,
-    private val onPlayClicked: (File, SeekBar, MaterialButton) -> Unit,
-    private val onDeleteClicked: (File) -> Unit
+    private var recordings: List<AudioRecording>,
+    private val onPlayClicked: (AudioRecording, SeekBar, MaterialButton) -> Unit,
+    private val onDeleteClicked: (AudioRecording) -> Unit
 ) : RecyclerView.Adapter<AudioAdapter.AudioViewHolder>() {
 
     private var currentlyPlayingPosition = -1
@@ -26,26 +23,46 @@ class AudioAdapter(
     }
 
     override fun onBindViewHolder(holder: AudioViewHolder, position: Int) {
-        val audioFile = audioFiles[position]
+        val recording = recordings[position]
         val binding = holder.binding
 
-        // Set file name (remove extension for cleaner display)
-        val fileName = audioFile.nameWithoutExtension
-        binding.tvAudioTitle.text = if (fileName.isNotEmpty()) fileName else "Recording ${position + 1}"
+        // Set file name
+        binding.tvAudioTitle.text = recording.fileName
         
         // Reset seekbar and play button
         binding.seekBar.progress = 0
         updatePlayButton(binding.btnPlay, false)
 
-        // Set audio duration
-        val duration = getAudioDuration(audioFile)
-        binding.seekBar.max = duration
-        binding.tvAudioDuration.text = formatDuration(duration)
+        // Set audio duration from database
+        binding.seekBar.max = recording.duration.toInt()
+        binding.tvAudioDuration.text = formatDuration(recording.duration.toInt())
 
-        // Set tajwid analysis results (placeholder for now)
-        binding.tvMad.text = "Mad: -"
-        binding.tvIdgham.text = "Idgham: -"
-        binding.tvIkhfa.text = "Ikhfa: -"
+        // Set tajwid analysis results from database with loading state
+        if (recording.isAnalyzing) {
+            // Show loading state
+            binding.tvMad.text = "Mad: 🔄"
+            binding.tvIdgham.text = "Idgham: 🔄"
+            binding.tvIkhfa.text = "Ikhfa: 🔄 "
+        } else {
+            // Show results or error state
+            binding.tvMad.text = if (recording.mad != null) {
+                if (recording.mad) "Mad: ✅ " else "Mad: ❌"
+            } else {
+                "Mad: ⚠ Error"
+            }
+            
+            binding.tvIdgham.text = if (recording.idgham != null) {
+                if (recording.idgham) "Idgham: ✅" else "Idgham: ❌"
+            } else {
+                "Idgham: ⚠ Error"
+            }
+            
+            binding.tvIkhfa.text = if (recording.ikhfa != null) {
+                if (recording.ikhfa) "Ikhfa: ✅" else "Ikhfa: ❌"
+            } else {
+                "Ikhfa: ⚠ Error"
+            }
+        }
 
         // Play button click handler
         binding.btnPlay.setOnClickListener {
@@ -59,7 +76,7 @@ class AudioAdapter(
                     // Start new playback
                     currentlyPlayingPosition = currentPosition
                     updatePlayButton(binding.btnPlay, true)
-                    onPlayClicked(audioFile, binding.seekBar, binding.btnPlay)
+                    onPlayClicked(recording, binding.seekBar, binding.btnPlay)
                 }
             }
         }
@@ -68,7 +85,7 @@ class AudioAdapter(
         binding.btnDelete.setOnClickListener {
             val currentPosition = holder.getAdapterPosition()
             if (currentPosition != RecyclerView.NO_POSITION) {
-                onDeleteClicked(audioFile)
+                onDeleteClicked(recording)
             }
         }
 
@@ -80,10 +97,10 @@ class AudioAdapter(
         }
     }
 
-    override fun getItemCount(): Int = audioFiles.size
+    override fun getItemCount(): Int = recordings.size
 
-    fun updateAudioFiles(newAudioFiles: List<File>) {
-        audioFiles = newAudioFiles
+    fun updateRecordings(newRecordings: List<AudioRecording>) {
+        recordings = newRecordings
         currentlyPlayingPosition = -1 // Reset playing state
         notifyDataSetChanged()
     }
@@ -98,17 +115,6 @@ class AudioAdapter(
             button.setBackgroundResource(R.drawable.ic_pause)
         } else {
             button.setBackgroundResource(R.drawable.ic_play)
-        }
-    }
-
-    private fun getAudioDuration(file: File): Int {
-        return try {
-            MediaPlayer().apply {
-                setDataSource(file.absolutePath)
-                prepare()
-            }.duration
-        } catch (e: Exception) {
-            0
         }
     }
 

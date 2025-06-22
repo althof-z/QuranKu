@@ -13,9 +13,13 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import com.example.quranku.databinding.FragmentHomeBinding
+import kotlinx.coroutines.launch
 import java.io.File
 import java.io.IOException
+import java.text.SimpleDateFormat
+import java.util.*
 
 class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
@@ -47,6 +51,7 @@ class HomeFragment : Fragment() {
     }
 
     private lateinit var audioPlayerHelper: AudioPlayerHelper
+    private lateinit var audioRepository: AudioRepository
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -54,6 +59,7 @@ class HomeFragment : Fragment() {
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         audioPlayerHelper = AudioPlayerHelper(requireContext(), binding.seekBar, binding.btnPlaySurah)
+        audioRepository = AudioRepository(requireContext())
         setupListeners()
         updateUI("Status: Idle", R.drawable.ic_mic)
         return binding.root
@@ -73,8 +79,7 @@ class HomeFragment : Fragment() {
         btnSave.setOnClickListener {
             if (isRecording) stopRecording()
             if (isRecorded) {
-                showToast("Recording saved: $outputFile")
-                resetRecorder()
+                saveRecordingToDatabase()
             } else {
                 showToast("No recording to save")
             }
@@ -88,7 +93,12 @@ class HomeFragment : Fragment() {
     private fun startRecording() {
         val dir = requireContext().getExternalFilesDir(Environment.DIRECTORY_MUSIC)?.apply { mkdirs() }
 
-        outputFile = "${dir?.absolutePath}/recording_${System.currentTimeMillis()}.wav"
+        // Create filename with format: Rekaman_DD-MM-YY_HH-MM-SS-MS
+        val dateFormat = SimpleDateFormat("dd-MM-yy_HH-mm-ss-SSS", Locale.getDefault())
+        val timestamp = dateFormat.format(Date())
+        val fileName = "Rekaman_$timestamp"
+        
+        outputFile = "${dir?.absolutePath}/$fileName.wav"
 
         mediaRecorder = MediaRecorder().apply {
             setAudioSource(MediaRecorder.AudioSource.MIC)
@@ -120,6 +130,35 @@ class HomeFragment : Fragment() {
         isRecording = false
         isRecorded = true
         updateUI("Recording Stopped", R.drawable.ic_mic)
+    }
+
+    private fun saveRecordingToDatabase() {
+        lifecycleScope.launch {
+            try {
+                val file = File(outputFile)
+                if (!file.exists()) {
+                    showToast("Recording file not found")
+                    return@launch
+                }
+
+                val fileName = file.nameWithoutExtension
+                val duration = audioRepository.getAudioDuration(outputFile)
+                
+                // Save to database with real tajwid analysis from API
+                val recordingId = audioRepository.insertRecording(
+                    fileName = fileName,
+                    filePath = outputFile,
+                    duration = duration
+                )
+                
+                showToast("Recording saved successfully!")
+                resetRecorder()
+                
+            } catch (e: Exception) {
+                e.printStackTrace()
+                showToast("Failed to save recording: ${e.message}")
+            }
+        }
     }
 
     private fun discardRecording() {
