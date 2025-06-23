@@ -1,225 +1,490 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".AppTutorialFragment">
+    android:background="@drawable/app_desc_gradient"
+    android:fillViewport="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/white">
+        android:layout_height="wrap_content"
+        android:padding="24dp">
 
-        <TextView
-            android:id="@+id/tv_title_mad"
-            android:layout_width="wrap_content"
+        <!-- Header Section -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_header"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:gravity="center"
-            style="@style/TitleText"
-            android:text="Mad"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/containermad"
-            android:layout_width="360dp"
-            android:layout_height="wrap_content"
-            android:background="@drawable/card_edge"
-            android:padding="16dp"
             android:layout_marginTop="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_title_mad">
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="8dp"
+            app:cardBackgroundColor="@color/white"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                android:id="@+id/tv_mad_desc"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Ketika alif bertemu alif mati"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:orientation="vertical"
+                android:padding="24dp"
+                android:gravity="center">
 
-            <ImageView
-                android:id="@+id/iv_surah_mad"
-                android:layout_width="340dp"
-                android:layout_height="87dp"
-                android:layout_marginTop="28dp"
-                android:background="@drawable/surah"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                <ImageView
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:src="@drawable/surah"
+                    android:scaleType="fitCenter"
+                    android:contentDescription="Tajwid Icon"
+                    app:tint="@color/color_primary" />
 
-            <!-- SeekBar untuk progress audio -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="Aturan Tajwid"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/color_primary_dark"
+                    android:fontFamily="@font/notosans" />
 
-            <SeekBar
-                android:id="@+id/sb_mad"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:progressBackgroundTint="@color/material_dynamic_neutral50"
-                android:progressTint="@color/black"
-                android:thumbTint="@color/black"
-                app:layout_constraintBottom_toBottomOf="@+id/btn_play_mad"
-                app:layout_constraintEnd_toEndOf="@+id/iv_surah_mad"
-                app:layout_constraintStart_toEndOf="@+id/btn_play_mad"
-                app:layout_constraintTop_toTopOf="@+id/btn_play_mad" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Pelajari 3 aturan tajwid yang akan diprediksi oleh QuranKu"
+                    android:textSize="14sp"
+                    android:textColor="@color/color_secondary"
+                    android:fontFamily="@font/notosans"
+                    android:gravity="center" />
 
-            <ImageButton
-                android:id="@+id/btn_play_mad"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
-                android:background="@drawable/ic_play"
-                android:backgroundTint="@color/material_dynamic_neutral50"
-                app:layout_constraintStart_toStartOf="@+id/iv_surah_mad"
-                app:layout_constraintTop_toBottomOf="@+id/iv_surah_mad" />
+            </LinearLayout>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
 
-        <TextView
-            android:id="@+id/tv_title_ikh"
-            android:layout_width="wrap_content"
+        <!-- Mad Card -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_mad"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_marginTop="32dp"
-            style="@style/TitleText"
-            android:text="Ikhfa"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/containermad" />
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/containerikh"
-            android:layout_width="360dp"
-            android:layout_height="wrap_content"
-            android:background="@drawable/card_edge"
-            android:padding="16dp"
             android:layout_marginTop="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_title_ikh">
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="6dp"
+            app:cardBackgroundColor="@color/white"
+            app:layout_constraintTop_toBottomOf="@+id/card_header">
 
-            <TextView
-                android:id="@+id/tv_ikh"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Ketika nun mati ketemu huruf ikhfa"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:orientation="vertical"
+                android:padding="20dp">
 
-            <ImageView
-                android:id="@+id/iv_ikh"
-                android:layout_width="340dp"
-                android:layout_height="87dp"
-                android:layout_marginTop="28dp"
-                android:background="@drawable/surah"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                <!-- Header with number -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="16dp">
 
-            <!-- SeekBar untuk progress audio -->
+                    <LinearLayout
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:background="@drawable/step_number_background"
+                        android:gravity="center"
+                        android:layout_marginEnd="16dp">
 
-            <SeekBar
-                android:id="@+id/sb_ikh"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:progressBackgroundTint="@color/material_dynamic_neutral50"
-                android:progressTint="@color/black"
-                android:thumbTint="@color/black"
-                app:layout_constraintBottom_toBottomOf="@+id/btn_Playikh"
-                app:layout_constraintEnd_toEndOf="@+id/iv_ikh"
-                app:layout_constraintStart_toEndOf="@+id/btn_Playikh"
-                app:layout_constraintTop_toTopOf="@+id/btn_Playikh" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="1"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/white"
+                            android:fontFamily="@font/notosans" />
 
-            <ImageButton
-                android:id="@+id/btn_Playikh"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
-                android:background="@drawable/ic_play"
-                android:backgroundTint="@color/material_dynamic_neutral50"
-                app:layout_constraintStart_toStartOf="@+id/iv_ikh"
-                app:layout_constraintTop_toBottomOf="@+id/iv_ikh" />
+                    </LinearLayout>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Mad"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/color_primary_dark"
+                        android:fontFamily="@font/notosans" />
 
+                </LinearLayout>
 
-        <TextView
-            android:id="@+id/tv_title_idg"
-            android:layout_width="wrap_content"
+                <!-- Description -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Mad adalah aturan tajwid yang mengharuskan memanjangkan suara huruf mad (alif, wawu, ya) selama 2 harakat atau lebih."
+                    android:textSize="15sp"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/notosans"
+                    android:lineSpacingExtra="4dp"
+                    android:layout_marginBottom="16dp" />
+
+                <!-- Example -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Contoh:"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/color_primary_dark"
+                    android:fontFamily="@font/notosans"
+                    android:layout_marginBottom="8dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="• Alif bertemu alif mati\n• Wawu bertemu wawu mati\n• Ya bertemu ya mati"
+                    android:textSize="14sp"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/notosans"
+                    android:lineSpacingExtra="4dp"
+                    android:layout_marginBottom="16dp" />
+
+                <!-- Audio Player -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:background="@drawable/card_edge"
+                    android:padding="12dp">
+
+                    <ImageButton
+                        android:id="@+id/btn_play_mad"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/ic_play"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:contentDescription="Play Mad Example"
+                        app:tint="@color/color_primary" />
+
+                    <SeekBar
+                        android:id="@+id/sb_mad"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginEnd="12dp"
+                        android:progressBackgroundTint="@color/material_dynamic_neutral50"
+                        android:progressTint="@color/color_primary"
+                        android:thumbTint="@color/color_primary" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <!-- Ikhfa Card -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_ikhfa"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:gravity="center"
-            style="@style/TitleText"
-            android:text="Idgham"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/containerikh" />
+            android:layout_marginTop="12dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="6dp"
+            app:cardBackgroundColor="@color/white"
+            app:layout_constraintTop_toBottomOf="@+id/card_mad">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/containerAyat"
-            android:layout_width="360dp"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <!-- Header with number -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="16dp">
+
+                    <LinearLayout
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:background="@drawable/step_number_background"
+                        android:gravity="center"
+                        android:layout_marginEnd="16dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="2"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/white"
+                            android:fontFamily="@font/notosans" />
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Ikhfa"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/color_primary_dark"
+                        android:fontFamily="@font/notosans" />
+
+                </LinearLayout>
+
+                <!-- Description -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Ikhfa adalah aturan tajwid yang mengharuskan menyembunyikan suara nun mati atau tanwin ketika bertemu dengan huruf ikhfa (15 huruf)."
+                    android:textSize="15sp"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/notosans"
+                    android:lineSpacingExtra="4dp"
+                    android:layout_marginBottom="16dp" />
+
+                <!-- Example -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Huruf Ikhfa (15 huruf):"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/color_primary_dark"
+                    android:fontFamily="@font/notosans"
+                    android:layout_marginBottom="8dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="ت ث ج د ذ ز س ش ص ض ط ظ ف ق ك"
+                    android:textSize="16sp"
+                    android:textColor="@color/color_primary"
+                    android:fontFamily="@font/notosans"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:layout_marginBottom="16dp" />
+
+                <!-- Audio Player -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:background="@drawable/card_edge"
+                    android:padding="12dp">
+
+                    <ImageButton
+                        android:id="@+id/btn_Playikh"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/ic_play"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:contentDescription="Play Ikhfa Example"
+                        app:tint="@color/color_primary" />
+
+                    <SeekBar
+                        android:id="@+id/sb_ikh"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginEnd="12dp"
+                        android:progressBackgroundTint="@color/material_dynamic_neutral50"
+                        android:progressTint="@color/color_primary"
+                        android:thumbTint="@color/color_primary" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <!-- Idgham Card -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_idgham"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/card_edge"
-            android:padding="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="24dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_title_idg">
+            android:layout_marginTop="12dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="6dp"
+            app:cardBackgroundColor="@color/white"
+            app:layout_constraintTop_toBottomOf="@+id/card_ikhfa">
 
-            <TextView
-                android:id="@+id/tv_tutorial"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Ketika nun mati ketemu huruf idgham"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:orientation="vertical"
+                android:padding="20dp">
 
-            <ImageView
-                android:id="@+id/iv_surah"
-                android:layout_width="340dp"
-                android:layout_height="87dp"
-                android:layout_marginTop="28dp"
-                android:background="@drawable/surah"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                <!-- Header with number -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="16dp">
 
-            <!-- SeekBar untuk progress audio -->
+                    <LinearLayout
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:background="@drawable/step_number_background"
+                        android:gravity="center"
+                        android:layout_marginEnd="16dp">
 
-            <SeekBar
-                android:id="@+id/sb_idg1"
-                android:layout_width="0dp"
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="3"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/white"
+                            android:fontFamily="@font/notosans" />
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Idgham"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/color_primary_dark"
+                        android:fontFamily="@font/notosans" />
+
+                </LinearLayout>
+
+                <!-- Description -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Idgham adalah aturan tajwid yang mengharuskan memasukkan suara nun mati atau tanwin ke dalam huruf yang mengikutinya sehingga menjadi satu suara."
+                    android:textSize="15sp"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/notosans"
+                    android:lineSpacingExtra="4dp"
+                    android:layout_marginBottom="16dp" />
+
+                <!-- Example -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Huruf Idgham (6 huruf):"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/color_primary_dark"
+                    android:fontFamily="@font/notosans"
+                    android:layout_marginBottom="8dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="ي ر م ل و ن"
+                    android:textSize="16sp"
+                    android:textColor="@color/color_primary"
+                    android:fontFamily="@font/notosans"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:layout_marginBottom="16dp" />
+
+                <!-- Audio Player -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:background="@drawable/card_edge"
+                    android:padding="12dp">
+
+                    <ImageButton
+                        android:id="@+id/btn_PlaySurah"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/ic_play"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:contentDescription="Play Idgham Example"
+                        app:tint="@color/color_primary" />
+
+                    <SeekBar
+                        android:id="@+id/sb_idg1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginEnd="12dp"
+                        android:progressBackgroundTint="@color/material_dynamic_neutral50"
+                        android:progressTint="@color/color_primary"
+                        android:thumbTint="@color/color_primary" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <!-- Info Card -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="6dp"
+            app:cardBackgroundColor="@color/color_primary"
+            app:layout_constraintTop_toBottomOf="@+id/card_idgham">
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:progressBackgroundTint="@color/material_dynamic_neutral50"
-                android:progressTint="@color/black"
-                android:thumbTint="@color/black"
-                app:layout_constraintBottom_toBottomOf="@+id/btn_PlaySurah"
-                app:layout_constraintEnd_toEndOf="@+id/iv_surah"
-                app:layout_constraintStart_toEndOf="@+id/btn_PlaySurah"
-                app:layout_constraintTop_toTopOf="@+id/btn_PlaySurah" />
+                android:orientation="vertical"
+                android:padding="20dp">
 
-            <ImageButton
-                android:id="@+id/btn_PlaySurah"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
-                android:background="@drawable/ic_play"
-                android:backgroundTint="@color/material_dynamic_neutral50"
-                app:layout_constraintStart_toStartOf="@+id/iv_surah"
-                app:layout_constraintTop_toBottomOf="@+id/iv_surah" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="📚 Cara Penggunaan"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
+                    android:fontFamily="@font/notosans"
+                    android:layout_marginBottom="12dp" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1. Dengarkan contoh audio untuk setiap aturan\n2. Praktikkan dengan merekam suara Anda\n3. Aplikasi akan menganalisis dan memberikan feedback\n4. Periksa hasil di halaman Riwayat"
+                    android:textSize="14sp"
+                    android:textColor="@color/white"
+                    android:fontFamily="@font/notosans"
+                    android:lineSpacingExtra="4dp" />
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <!-- Bottom Spacing -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="24dp"
+            app:layout_constraintTop_toBottomOf="@+id/card_info" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
