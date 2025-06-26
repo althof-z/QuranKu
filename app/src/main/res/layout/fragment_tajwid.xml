@@ -79,25 +79,25 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
+                    android:layout_marginBottom="16dp"
                     android:gravity="center_vertical"
-                    android:layout_marginBottom="16dp">
+                    android:orientation="horizontal">
 
                     <LinearLayout
                         android:layout_width="48dp"
                         android:layout_height="48dp"
+                        android:layout_marginEnd="16dp"
                         android:background="@drawable/step_number_background"
-                        android:gravity="center"
-                        android:layout_marginEnd="16dp">
+                        android:gravity="center">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:fontFamily="@font/notosans"
                             android:text="1"
-                            android:textSize="18sp"
-                            android:textStyle="bold"
                             android:textColor="@color/white"
-                            android:fontFamily="@font/notosans" />
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
 
                     </LinearLayout>
 
@@ -105,11 +105,11 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:fontFamily="@font/notosans"
                         android:text="Mad"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
                         android:textColor="@color/color_primary_dark"
-                        android:fontFamily="@font/notosans" />
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
 
                 </LinearLayout>
 
@@ -117,59 +117,62 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Mad is a tajwid rule that requires lengthening the sound of mad letters (alif, waw, ya) for 2 or more counts."
-                    android:textSize="15sp"
-                    android:textColor="@color/black"
+                    android:layout_marginBottom="16dp"
                     android:fontFamily="@font/notosans"
                     android:lineSpacingExtra="4dp"
-                    android:layout_marginBottom="16dp" />
+                    android:text="Mad is a tajwid rule that requires lengthening the sound of mad letters (alif, waw, ya) for 2 or more counts."
+                    android:textColor="@color/black"
+                    android:textSize="15sp" />
 
                 <!-- Example -->
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Example:"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/color_primary_dark"
+                    android:layout_marginBottom="8dp"
                     android:fontFamily="@font/notosans"
-                    android:layout_marginBottom="8dp" />
+                    android:text="Example:"
+                    android:textColor="@color/color_primary_dark"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="• Alif meets alif sukun\n• Waw meets waw sukun\n• Ya meets ya sukun"
-                    android:textSize="14sp"
-                    android:textColor="@color/black"
+                    android:layout_marginBottom="16dp"
                     android:fontFamily="@font/notosans"
                     android:lineSpacingExtra="4dp"
-                    android:layout_marginBottom="16dp" />
+                    android:text="• Alif meets alif sukun\n• Waw meets waw sukun\n• Ya meets ya sukun"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
 
                 <!-- Audio Player -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
                     android:background="@drawable/card_edge"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
                     android:padding="12dp">
 
-                    <ImageButton
+                    <com.google.android.material.button.MaterialButton
                         android:id="@+id/btn_play_mad"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:src="@drawable/ic_play"
-                        android:background="?attr/selectableItemBackgroundBorderless"
                         android:contentDescription="Play Mad Example"
-                        app:tint="@color/color_primary" />
+                        android:background="@drawable/ic_play"
+                        app:icon="@drawable/ic_play"
+                        app:iconTint="@color/color_primary"
+                        app:iconSize="38dp"
+                        app:iconGravity="textStart"
+                        app:iconPadding="0dp" />
 
                     <SeekBar
                         android:id="@+id/sb_mad"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:layout_marginStart="12dp"
                         android:layout_marginEnd="12dp"
+                        android:layout_weight="1"
                         android:progressBackgroundTint="@color/material_dynamic_neutral50"
                         android:progressTint="@color/color_primary"
                         android:thumbTint="@color/color_primary" />
@@ -279,14 +282,17 @@
                     android:background="@drawable/card_edge"
                     android:padding="12dp">
 
-                    <ImageButton
+                    <com.google.android.material.button.MaterialButton
                         android:id="@+id/btn_Playikh"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:src="@drawable/ic_play"
-                        android:background="?attr/selectableItemBackgroundBorderless"
-                        android:contentDescription="Play Ikhfa Example"
-                        app:tint="@color/color_primary" />
+                        android:background="@drawable/ic_play"
+                        app:icon="@drawable/ic_play"
+                        app:iconTint="@color/color_primary"
+                        app:iconSize="38dp"
+                        app:iconGravity="textStart"
+                        app:iconPadding="0dp"
+                        android:contentDescription="Play Ikhfa Example" />
 
                     <SeekBar
                         android:id="@+id/sb_ikh"
@@ -404,14 +410,17 @@
                     android:background="@drawable/card_edge"
                     android:padding="12dp">
 
-                    <ImageButton
+                    <com.google.android.material.button.MaterialButton
                         android:id="@+id/btn_PlaySurah"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:src="@drawable/ic_play"
-                        android:background="?attr/selectableItemBackgroundBorderless"
-                        android:contentDescription="Play Idgham Example"
-                        app:tint="@color/color_primary" />
+                        android:background="@drawable/ic_play"
+                        app:icon="@drawable/ic_play"
+                        app:iconTint="@color/color_primary"
+                        app:iconSize="38dp"
+                        app:iconGravity="textStart"
+                        app:iconPadding="0dp"
+                        android:contentDescription="Play Idgham Example" />
 
                     <SeekBar
                         android:id="@+id/sb_idg1"

@@ -12,21 +12,24 @@ import android.text.style.TypefaceSpan
 import android.widget.TextView
 import androidx.core.content.res.ResourcesCompat
 import com.example.quranku.R
+import com.example.quranku.databinding.FragmentAppDescBinding
 
 class AppDescFragment : Fragment() {
+    private var _binding: FragmentAppDescBinding? = null
+    private val binding: FragmentAppDescBinding by lazy { _binding!! }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_app_desc, container, false)
+        _binding = FragmentAppDescBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         // Set Cinzel font only for 'QuranKu' in the About title
-        val tvAboutQuranKu = view.findViewById<TextView>(R.id.tv_aboutQuranKu)
+        val tvAboutQuranKu = binding.tvAboutQuranKu
         val aboutText = tvAboutQuranKu.text.toString()
         val cinzel = ResourcesCompat.getFont(requireContext(), R.font.cinzelbold)
         if (cinzel != null) {
@@ -38,7 +41,7 @@ class AppDescFragment : Fragment() {
             }
             tvAboutQuranKu.text = spannable
         }
-        val tvAppDesc = view.findViewById<TextView>(R.id.tv_appDesc)
+        val tvAppDesc = binding.tvAppDesc
         val originalText = tvAppDesc.text.toString()
         if (cinzel != null) {
             val spannable = SpannableString(originalText)
@@ -50,6 +53,11 @@ class AppDescFragment : Fragment() {
             }
             tvAppDesc.text = spannable
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
 

@@ -16,7 +16,7 @@ import kotlinx.coroutines.launch
 class HistoryFragment : Fragment() {
 
     private var _binding: FragmentHistoryBinding? = null
-    private val binding get() = _binding!!
+    private val binding: FragmentHistoryBinding by lazy { _binding!! }
 
     private lateinit var audioAdapter: AudioAdapter
     private var currentHelper: AudioPlayerHelper? = null

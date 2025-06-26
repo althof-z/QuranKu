@@ -9,18 +9,23 @@ import androidx.viewpager2.widget.ViewPager2
 import com.example.quranku.R
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import com.example.quranku.databinding.FragmentInfoBinding
 
 class InfoFragment : Fragment() {
+    private var _binding: FragmentInfoBinding? = null
+    private val binding: FragmentInfoBinding by lazy { _binding!! }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        return inflater.inflate(R.layout.fragment_info, container, false)
+        _binding = FragmentInfoBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val viewPager = view.findViewById<ViewPager2>(R.id.view_pager_info)
-        val tabLayout = view.findViewById<TabLayout>(R.id.tab_layout_info)
+        val viewPager = binding.viewPagerInfo
+        val tabLayout = binding.tabLayoutInfo
 
         val adapter = InfoPagerAdapter(this)
         viewPager.adapter = adapter
@@ -33,5 +38,10 @@ class InfoFragment : Fragment() {
                 else -> null
             }
         }.attach()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
