@@ -8,9 +8,13 @@
         <item name="cornerSizeTopLeft">8%</item>
         <item name="cornerSizeTopRight">8%</item>
     </style>
+
+    <!-- Enhanced Bottom Navigation Indicator -->
     <style name="App.Custom.Indicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
-        <item name="android:color">@color/material_dynamic_neutral80</item>
+        <item name="android:color">@color/color_primary</item>
+        <item name="cornerSize">50%</item>
     </style>
+
     <style name="TitleText">
         <item name="android:textSize">20sp</item> <!-- Title size -->
         <item name="android:textStyle">bold</item> <!-- Bold -->

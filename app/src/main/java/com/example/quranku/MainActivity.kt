@@ -19,10 +19,10 @@ class MainActivity : AppCompatActivity() {
         // Set default fragment
         if (savedInstanceState == null) {
             replaceFragment(HomeFragment())
-            binding.bottomNav.selectedItemId = R.id.nav_home // ✅ ensure Home is selected
+            binding.bottomNav.selectedItemId = R.id.nav_home
         }
 
-        // Set listener untuk bottom navigation
+        // Bottom navigation listener
         binding.bottomNav.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.nav_home -> {
