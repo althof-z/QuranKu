@@ -96,7 +96,7 @@ class HomeFragment : Fragment() {
         // Create filename with format: Rekaman_DD-MM-YY_HH-MM-SS-MS
         val dateFormat = SimpleDateFormat("dd-MM-yy_HH-mm-ss-SSS", Locale.getDefault())
         val timestamp = dateFormat.format(Date())
-        val fileName = "Rekaman_$timestamp"
+        val fileName = "Reconrding_$timestamp"
         
         outputFile = "${dir?.absolutePath}/$fileName.wav"
 

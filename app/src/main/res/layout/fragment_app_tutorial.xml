@@ -43,7 +43,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="Ikuti langkah-langkah berikut untuk menggunakan QuranKu"
+                    android:text="Follow these steps to use QuranKu"
                     android:textSize="14sp"
                     android:textColor="@color/color_secondary"
                     android:fontFamily="@font/notosans"
@@ -100,7 +100,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Masuk ke Halaman Rekam"
+                        android:text="Go to the Record Page"
                         android:textSize="16sp"
                         android:textStyle="bold"
                         android:textColor="@color/color_primary_dark"
@@ -110,7 +110,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
-                        android:text="Buka aplikasi dan pilih tab 'Rekam' pada bar navigasi di bagian bawah"
+                        android:text="Open the app and select the 'Record' tab in the bottom navigation bar"
                         android:textSize="14sp"
                         android:textColor="@color/black"
                         android:fontFamily="@font/notosans" />
@@ -175,7 +175,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Mulai Rekam Suara"
+                        android:text="Start Recording"
                         android:textSize="16sp"
                         android:textStyle="bold"
                         android:textColor="@color/color_primary_dark"
@@ -185,7 +185,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
-                        android:text="Klik tombol dengan ikon mikropon untuk mulai merekam. Lantunkan contoh ayat Al-Qur'an yang tertera. Icon akan berubah menjadi stop saat rekaman berlangsung."
+                        android:text="Tap the microphone icon to start recording. Recite the displayed Quran verse. The icon will change to stop while recording."
                         android:textSize="14sp"
                         android:textColor="@color/black"
                         android:fontFamily="@font/notosans" />
@@ -250,7 +250,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Selesai Rekam"
+                        android:text="Finish Recording"
                         android:textSize="16sp"
                         android:textStyle="bold"
                         android:textColor="@color/color_primary_dark"
@@ -260,7 +260,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
-                        android:text="Klik tombol centang untuk mengakhiri sesi perekaman dan mulai analisis tajwid"
+                        android:text="Tap the checkmark to end the recording session and start tajwid analysis."
                         android:textSize="14sp"
                         android:textColor="@color/black"
                         android:fontFamily="@font/notosans" />
@@ -325,7 +325,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Lihat Hasil Analisis"
+                        android:text="View Analysis Results"
                         android:textSize="16sp"
                         android:textStyle="bold"
                         android:textColor="@color/color_primary_dark"
@@ -335,7 +335,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
-                        android:text="Masuk ke halaman 'Hasil' untuk melihat hasil penilaian rekaman dan informasi prediksi pembacaan tajwid"
+                        android:text="Go to the 'Results' page to see the recording assessment and tajwid prediction information."
                         android:textSize="14sp"
                         android:textColor="@color/black"
                         android:fontFamily="@font/notosans" />
@@ -375,7 +375,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="💡 Tips Penggunaan"
+                    android:text="💡 Usage Tips"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     android:textColor="@color/white"
@@ -385,7 +385,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="• Pastikan suara jelas dan tidak ada gangguan\n• Baca dengan tempo yang sesuai\n• Tunggu analisis selesai sebelum merekam lagi\n• Periksa riwayat untuk melihat perkembangan"
+                    android:text="• Make sure your voice is clear and there is no noise\n• Recite at an appropriate pace\n• Wait for the analysis to finish before recording again\n• Check history to see your progress"
                     android:textSize="14sp"
                     android:textColor="@color/white"
                     android:fontFamily="@font/notosans"

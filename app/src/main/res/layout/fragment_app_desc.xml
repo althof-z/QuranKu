@@ -43,7 +43,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="Aplikasi Pembelajaran Tajwid Al-Qur'an"
+                    android:text="Quran Tajwid Learning App"
                     android:textSize="14sp"
                     android:textColor="@color/color_secondary"
                     android:fontFamily="@font/notosans" />
@@ -72,9 +72,10 @@
                 android:padding="24dp">
 
                 <TextView
+                    android:id="@+id/tv_aboutQuranKu"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Tentang QuranKu"
+                    android:text="About QuranKu"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     android:textColor="@color/color_primary_dark"
@@ -85,7 +86,7 @@
                     android:id="@+id/tv_appDesc"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/app_desc"
+                    android:text="QuranKu is an Android app that helps you learn to recite the Qur'an with proper tajwid. Using speech recognition technology, the app can detect recitation mistakes and provide automatic feedback. QuranKu uses MFCC and SVM methods to recognize user voices.\n\nThis app was created as part of a thesis project at the PLN Institute of Technology (IT-PLN), with the hope of becoming a learning tool and a source of ongoing good deeds.\n\nLet's improve your Qur'an recitation with QuranKu!"
                     android:textSize="15sp"
                     android:textColor="@color/black"
                     android:lineSpacingExtra="4dp"
@@ -117,7 +118,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Fitur Utama"
+                    android:text="Main Features"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     android:textColor="@color/color_primary_dark"
@@ -143,7 +144,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Deteksi Kesalahan Tajwid"
+                        android:text="Tajwid Error Detection"
                         android:textSize="15sp"
                         android:textColor="@color/black"
                         android:fontFamily="@font/notosans" />
@@ -169,7 +170,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Riwayat Pembelajaran"
+                        android:text="Learning History"
                         android:textSize="15sp"
                         android:textColor="@color/black"
                         android:fontFamily="@font/notosans" />
@@ -194,7 +195,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Teknologi MFCC &amp; SVM"
+                        android:text="MFCC &amp; SVM Technology"
                         android:textSize="15sp"
                         android:textColor="@color/black"
                         android:fontFamily="@font/notosans" />

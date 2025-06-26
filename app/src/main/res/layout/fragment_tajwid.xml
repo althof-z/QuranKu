@@ -36,7 +36,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
-                    android:text="Aturan Tajwid"
+                    android:text="Tajwid Rules"
                     android:textSize="24sp"
                     android:textStyle="bold"
                     android:textColor="@color/color_primary_dark"
@@ -46,7 +46,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="Pelajari 3 aturan tajwid yang akan diprediksi oleh QuranKu"
+                    android:text="Learn about the 3 tajwid rules that QuranKu will predict"
                     android:textSize="14sp"
                     android:textColor="@color/color_secondary"
                     android:fontFamily="@font/notosans"
@@ -117,7 +117,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Mad adalah aturan tajwid yang mengharuskan memanjangkan suara huruf mad (alif, wawu, ya) selama 2 harakat atau lebih."
+                    android:text="Mad is a tajwid rule that requires lengthening the sound of mad letters (alif, waw, ya) for 2 or more counts."
                     android:textSize="15sp"
                     android:textColor="@color/black"
                     android:fontFamily="@font/notosans"
@@ -128,7 +128,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Contoh:"
+                    android:text="Example:"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     android:textColor="@color/color_primary_dark"
@@ -138,7 +138,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="• Alif bertemu alif mati\n• Wawu bertemu wawu mati\n• Ya bertemu ya mati"
+                    android:text="• Alif meets alif sukun\n• Waw meets waw sukun\n• Ya meets ya sukun"
                     android:textSize="14sp"
                     android:textColor="@color/black"
                     android:fontFamily="@font/notosans"
@@ -241,7 +241,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Ikhfa adalah aturan tajwid yang mengharuskan menyembunyikan suara nun mati atau tanwin ketika bertemu dengan huruf ikhfa (15 huruf)."
+                    android:text="Ikhfa is a tajwid rule that requires hiding the sound of nun sukun or tanwin when followed by one of the 15 ikhfa letters."
                     android:textSize="15sp"
                     android:textColor="@color/black"
                     android:fontFamily="@font/notosans"
@@ -252,7 +252,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Huruf Ikhfa (15 huruf):"
+                    android:text="Ikhfa Letters (15 letters):"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     android:textColor="@color/color_primary_dark"
@@ -366,7 +366,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Idgham adalah aturan tajwid yang mengharuskan memasukkan suara nun mati atau tanwin ke dalam huruf yang mengikutinya sehingga menjadi satu suara."
+                    android:text="Idgham is a tajwid rule that requires merging the sound of nun sukun or tanwin into the following letter, making it one sound."
                     android:textSize="15sp"
                     android:textColor="@color/black"
                     android:fontFamily="@font/notosans"
@@ -377,7 +377,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Huruf Idgham (6 huruf):"
+                    android:text="Idgham Letters (6 letters):"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     android:textColor="@color/color_primary_dark"
@@ -452,7 +452,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="📚 Cara Penggunaan"
+                    android:text="📚 How to Use"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     android:textColor="@color/white"
@@ -462,7 +462,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="1. Dengarkan contoh audio untuk setiap aturan\n2. Praktikkan dengan merekam suara Anda\n3. Aplikasi akan menganalisis dan memberikan feedback\n4. Periksa hasil di halaman Riwayat"
+                    android:text="1. Listen to the example audio for each rule\n2. Practice by recording your voice\n3. The app will analyze and provide feedback\n4. Check the results in the History page"
                     android:textSize="14sp"
                     android:textColor="@color/white"
                     android:fontFamily="@font/notosans"
