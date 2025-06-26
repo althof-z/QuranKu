@@ -1,9 +1,11 @@
-package com.example.quranku
+package com.example.quranku.data.local
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.example.quranku.data.entity.AudioRecording
+import com.example.quranku.data.dao.AudioRecordingDao
 
 @Database(entities = [AudioRecording::class], version = 2, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {

@@ -1,7 +1,9 @@
-package com.example.quranku
+package com.example.quranku.data.repository
 
 import android.content.Context
 import android.media.MediaPlayer
+import com.example.quranku.data.entity.AudioRecording
+import com.example.quranku.data.local.AppDatabase
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.CoroutineScope

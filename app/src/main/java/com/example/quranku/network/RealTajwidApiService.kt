@@ -1,4 +1,4 @@
-package com.example.quranku
+package com.example.quranku.network
 
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

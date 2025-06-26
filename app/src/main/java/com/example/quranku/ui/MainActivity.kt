@@ -1,11 +1,14 @@
-package com.example.quranku
+package com.example.quranku.ui
 
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
+import com.example.quranku.R
 import com.example.quranku.databinding.ActivityMainBinding
+import com.example.quranku.ui.history.HistoryFragment
+import com.example.quranku.ui.home.HomeFragment
+import com.example.quranku.ui.info.InfoFragment
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding

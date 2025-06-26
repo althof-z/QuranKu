@@ -1,4 +1,4 @@
-package com.example.quranku
+package com.example.quranku.data.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

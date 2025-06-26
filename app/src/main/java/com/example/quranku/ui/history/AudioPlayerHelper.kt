@@ -1,4 +1,4 @@
-package com.example.quranku
+package com.example.quranku.ui.history
 
 import android.content.Context
 import android.media.MediaPlayer
@@ -6,6 +6,7 @@ import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import android.widget.SeekBar
+import com.example.quranku.R
 import com.google.android.material.button.MaterialButton
 
 class AudioPlayerHelper(

@@ -1,4 +1,4 @@
-package com.example.quranku
+package com.example.quranku.network
 
 import com.google.gson.annotations.SerializedName
 

@@ -1,4 +1,4 @@
-package com.example.quranku
+package com.example.quranku.ui.home
 
 import android.Manifest
 import android.content.pm.PackageManager
@@ -14,6 +14,9 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import com.example.quranku.ui.history.AudioPlayerHelper
+import com.example.quranku.R
+import com.example.quranku.data.repository.AudioRepository
 import com.example.quranku.databinding.FragmentHomeBinding
 import kotlinx.coroutines.launch
 import java.io.File
@@ -96,7 +99,7 @@ class HomeFragment : Fragment() {
         // Create filename with format: Rekaman_DD-MM-YY_HH-MM-SS-MS
         val dateFormat = SimpleDateFormat("dd-MM-yy_HH-mm-ss-SSS", Locale.getDefault())
         val timestamp = dateFormat.format(Date())
-        val fileName = "Reconrding_$timestamp"
+        val fileName = "Recording_$timestamp"
         
         outputFile = "${dir?.absolutePath}/$fileName.wav"
 

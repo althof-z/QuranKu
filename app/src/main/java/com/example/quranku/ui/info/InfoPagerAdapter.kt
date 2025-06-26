@@ -1,8 +1,7 @@
-package com.example.quranku
+package com.example.quranku.ui.info
 
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.example.quranku.databinding.FragmentAppDescBinding
 
 class InfoPagerAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
     override fun getItemCount(): Int = 3

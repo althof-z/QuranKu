@@ -1,10 +1,12 @@
-package com.example.quranku
+package com.example.quranku.ui.history
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.SeekBar
 import androidx.recyclerview.widget.RecyclerView
+import com.example.quranku.R
+import com.example.quranku.data.entity.AudioRecording
 import com.example.quranku.databinding.ItemAudioBinding
 import com.google.android.material.button.MaterialButton
 

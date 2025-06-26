@@ -1,4 +1,4 @@
-package com.example.quranku
+package com.example.quranku.network
 
 import okhttp3.MultipartBody
 import retrofit2.Response

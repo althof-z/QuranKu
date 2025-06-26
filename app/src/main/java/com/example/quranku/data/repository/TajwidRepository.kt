@@ -1,7 +1,11 @@
-package com.example.quranku
+package com.example.quranku.data.repository
 
 import android.content.Context
 import android.net.Uri
+import com.example.quranku.network.ApiConfig
+import com.example.quranku.network.RealTajwidApiService
+import com.example.quranku.network.TajwidApiResponse
+import com.example.quranku.network.TajwidApiService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okhttp3.MediaType.Companion.toMediaTypeOrNull

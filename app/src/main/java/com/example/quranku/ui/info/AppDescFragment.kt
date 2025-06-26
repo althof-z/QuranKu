@@ -1,4 +1,4 @@
-package com.example.quranku
+package com.example.quranku.ui.info
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -11,6 +11,7 @@ import android.text.Spanned
 import android.text.style.TypefaceSpan
 import android.widget.TextView
 import androidx.core.content.res.ResourcesCompat
+import com.example.quranku.R
 
 class AppDescFragment : Fragment() {
 

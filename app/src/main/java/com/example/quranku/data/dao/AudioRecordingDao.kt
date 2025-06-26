@@ -1,6 +1,7 @@
-package com.example.quranku
+package com.example.quranku.data.dao
 
 import androidx.room.*
+import com.example.quranku.data.entity.AudioRecording
 import kotlinx.coroutines.flow.Flow
 
 @Dao

@@ -1,4 +1,4 @@
-package com.example.quranku
+package com.example.quranku.ui.history
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import com.example.quranku.data.repository.AudioRepository
 import com.example.quranku.databinding.FragmentHistoryBinding
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
