@@ -26,7 +26,7 @@ class InfoFragment : Fragment() {
 
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->
             tab.text = when (position) {
-                0 -> "Informasi"
+                0 -> "Information"
                 1 -> "Tutorial"
                 2 -> "Tajwid"
                 else -> null

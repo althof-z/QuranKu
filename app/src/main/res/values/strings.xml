@@ -2,6 +2,15 @@
     <string name="app_name">QuranKu</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="app_desc">QuranKu adalah aplikasi Android yang membantu kamu belajar membaca Al-Qur’an sesuai tajwid. Dengan teknologi pengenalan suara, aplikasi ini bisa mendeteksi kesalahan bacaan dan memberi umpan balik secara otomatis. QuranKu menggunakan metode MFCC dan SVM untuk mengenali suara pengguna. \n\nAplikasi ini dibuat sebagai bagian dari proyek skripsi di Institut Teknologi Perusahaan Listrik Negara (IT-PLN), dengan harapan bisa menjadi alat bantu belajar sekaligus amal jariyah digital. \n\nYuk, tingkatkan bacaan Al-Qur’an kamu bareng QuranKu!</string>
-    <string name="tv_tutorial">1. Masuk ke Halaman Record melalui Bar Navigasi\n\n2. Klik tombol record dengan ikon mikropon untuk mereka suara dan lantunkan contoh ayat al-quran yang tertera. Proses rekaman ditandai dengan pergantian icon mikropon menjadi tanda stop, yang menandakan perekaman berlangsung.\n\n3. Klik tombol centang untuk mengakhiri sesi perekaman.\n\n4. Untuk melihat hasil penilaian rekaman, masuk ke dalam halaman history. Pada halaman tersebut terdapat informasi tajwid mana yang sudah benar anda lantunkan</string>
+    <string name="app_desc">
+    QuranKu is an Android application designed to help you learn to recite the Qur’an with proper tajweed. Using voice recognition technology, this app can detect recitation errors and provide instant feedback. QuranKu applies MFCC and SVM methods to analyze the user’s voice.\n\n
+    This application was developed as part of a thesis project at the Institute of Technology PLN (IT-PLN), with the hope of serving as both a learning tool and a form of digital charity.\n\n
+        Let’s improve your Qur’an recitation together with QuranKu!
+</string>
+    <string name="tv_tutorial">
+1. Go to the Record Page via the Navigation Bar.\n\n
+2. Tap the record button with the microphone icon to start recording your voice, then recite the sample Qur’anic verse shown. The recording is indicated by the microphone icon changing to a stop icon, signaling that recording is in progress.\n\n
+3. Tap the checkmark button to end the recording session.\n\n
+4. To view the evaluation results, navigate to the History page. There, you’ll find information on which tajweed rules were correctly recited.
+</string>
 </resources>

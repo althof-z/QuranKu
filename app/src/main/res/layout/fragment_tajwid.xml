@@ -14,7 +14,7 @@
         android:layout_marginTop="32dp"
         android:gravity="center"
         style="@style/TitleText"
-        android:text="Idgham"
+        android:text="Mad"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -35,7 +35,7 @@
             android:id="@+id/tv_tutorial"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Ketika nun mati ketemu huruf idgham"
+            android:text="when a noon sakinah meets an idgham letter"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -105,7 +105,7 @@
             android:id="@+id/tv_ikh"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Ketika nun mati ketemu huruf ikhfa"
+            android:text="when a noon sakinah meets an ikhfa letter"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -144,6 +144,76 @@
             android:backgroundTint="@color/material_dynamic_neutral50"
             app:layout_constraintStart_toStartOf="@+id/iv_ikh"
             app:layout_constraintTop_toBottomOf="@+id/iv_ikh" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/tv_title_idgh"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="32dp"
+        style="@style/TitleText"
+        android:text="Idgham"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/containerikh" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/containeridgh"
+        android:layout_width="360dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/card_edge"
+        android:padding="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.686"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_title_idgh">
+
+        <TextView
+            android:id="@+id/tv_idgh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="when a noon sakinah meets an idgham letter"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_idgh"
+            android:layout_width="340dp"
+            android:layout_height="87dp"
+            android:layout_marginTop="28dp"
+            android:background="@drawable/surah"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- SeekBar untuk progress audio -->
+
+        <SeekBar
+            android:id="@+id/sb_idgh"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:progressBackgroundTint="@color/material_dynamic_neutral50"
+            android:progressTint="@color/black"
+            android:thumbTint="@color/black"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_Playidgh"
+            app:layout_constraintEnd_toEndOf="@+id/iv_idgh"
+            app:layout_constraintStart_toEndOf="@+id/btn_Playidgh"
+            app:layout_constraintTop_toTopOf="@+id/btn_Playidgh" />
+
+        <ImageButton
+            android:id="@+id/btn_Playidgh"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/ic_play"
+            android:backgroundTint="@color/material_dynamic_neutral50"
+            app:layout_constraintStart_toStartOf="@+id/iv_idgh"
+            app:layout_constraintTop_toBottomOf="@+id/iv_idgh" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

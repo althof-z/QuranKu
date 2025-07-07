@@ -14,7 +14,7 @@
         android:layout_marginBottom="32dp"
         style="@style/TitleText"
         android:gravity="center"
-        android:text="Tutorial Penggunaan Aplikasi"
+        android:text="App Tutorial"
         app:layout_constraintBottom_toTopOf="@+id/containerAyat"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
