@@ -132,7 +132,7 @@ class HomeFragment : Fragment() {
         timerHandler.removeCallbacks(timerRunnable)
         isRecording = false
         isRecorded = true
-        updateUI("Recording Stopped", R.drawable.ic_mic)
+        updateUI("Recording Stopped", R.drawable.placeholder_box)
     }
 
     private fun saveRecordingToDatabase() {

@@ -48,19 +48,19 @@ class AudioAdapter(
         } else {
             // Show results or error state
             binding.tvMad.text = if (recording.mad != null) {
-                if (recording.mad) "Mad: ✅ " else "Mad: ❌"
+                if (recording.mad) "Mad: - " else "Mad: -"
             } else {
                 "Mad: ⚠ Error"
             }
             
             binding.tvIdgham.text = if (recording.idgham != null) {
-                if (recording.idgham) "Idgham: ✅" else "Idgham: ❌"
+                if (recording.idgham) "Idgham: -" else "Idgham: -"
             } else {
                 "Idgham: ⚠ Error"
             }
             
             binding.tvIkhfa.text = if (recording.ikhfa != null) {
-                if (recording.ikhfa) "Ikhfa: ✅" else "Ikhfa: ❌"
+                if (recording.ikhfa) "Ikhfa: -" else "Ikhfa: -"
             } else {
                 "Ikhfa: ⚠ Error"
             }
@@ -114,9 +114,9 @@ class AudioAdapter(
 
     private fun updatePlayButton(button: MaterialButton, isPlaying: Boolean) {
         if (isPlaying) {
-            button.setBackgroundResource(R.drawable.ic_pause)
+            button.setBackgroundResource(R.drawable.placeholder_box)
         } else {
-            button.setBackgroundResource(R.drawable.ic_play)
+            button.setBackgroundResource(R.drawable.placeholder_box)
         }
     }
 

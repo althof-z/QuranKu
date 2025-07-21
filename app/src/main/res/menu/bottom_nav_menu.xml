@@ -2,15 +2,15 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/nav_info"
-        android:icon="@drawable/ic_info"
+        android:icon="@drawable/placeholder_box"
         android:title="Info" />
 
     <item
         android:id="@+id/nav_home"
-        android:icon="@drawable/ic_mic"
+        android:icon="@drawable/placeholder_box"
         android:title="Record" />
     <item
         android:id="@+id/nav_history"
-        android:icon="@drawable/ic_history"
+        android:icon="@drawable/placeholder_box"
         android:title="Result" />
 </menu>

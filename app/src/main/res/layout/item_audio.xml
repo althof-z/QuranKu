@@ -32,8 +32,7 @@
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/ic_mic"
-                android:tint="#8BC34A"
+                android:src="@drawable/placeholder_box"
                 android:layout_marginEnd="12dp" />
 
             <!-- File Name and Duration -->
@@ -72,11 +71,10 @@
         <!-- Delete Button -->
         <ImageButton
             android:id="@+id/btn_delete"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:src="@drawable/ic_trash"
-            android:tint="#FF3B30"
+            android:src="@drawable/placeholder_box"
             android:contentDescription="Delete recording"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -98,7 +96,7 @@
                 android:id="@+id/btn_Play"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:background="@drawable/ic_play"/>
+                android:background="@drawable/placeholder_box"/>
 
             <!-- SeekBar -->
             <SeekBar
