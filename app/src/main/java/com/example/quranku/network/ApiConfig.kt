@@ -3,7 +3,7 @@ package com.example.quranku.network
 object ApiConfig {
     
     // API Configuration
-    const val BASE_URL = "https://mock-quranku-api-7f2565f9623e.herokuapp.com/"
+    const val BASE_URL = "https://quranku-fastapi-e13b92394c46.herokuapp.com/"
     const val ENDPOINT_ANALYZE_TAJWID = "predict"
     
     // Timeout settings (in seconds)

@@ -23,12 +23,13 @@ import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
+import com.example.quranku.util.WavAudioRecorder
 
 class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding: FragmentHomeBinding by lazy { _binding!! }
 
-    private var mediaRecorder: MediaRecorder? = null
+    private var wavRecorder: WavAudioRecorder? = null
     private var outputFile: String = ""
     private var isRecording = false
     private var isRecorded = false
@@ -95,40 +96,23 @@ class HomeFragment : Fragment() {
 
     private fun startRecording() {
         val dir = requireContext().getExternalFilesDir(Environment.DIRECTORY_MUSIC)?.apply { mkdirs() }
-
-        // Create filename with format: Rekaman_DD-MM-YY_HH-MM-SS-MS
         val dateFormat = SimpleDateFormat("dd-MM-yy_HH-mm-ss-SSS", Locale.getDefault())
         val timestamp = dateFormat.format(Date())
         val fileName = "Recording_$timestamp"
-        
         outputFile = "${dir?.absolutePath}/$fileName.wav"
 
-        mediaRecorder = MediaRecorder().apply {
-            setAudioSource(MediaRecorder.AudioSource.MIC)
-            setOutputFormat(MediaRecorder.OutputFormat.MPEG_4)
-            setAudioEncoder(MediaRecorder.AudioEncoder.AAC)
-            setOutputFile(outputFile)
-            try {
-                prepare()
-                start()
-                startTime = System.currentTimeMillis()
-                timerHandler.post(timerRunnable)
-                isRecording = true
-                isRecorded = false
-                updateUI("Recording...", R.drawable.ic_stop)
-            } catch (e: IOException) {
-                showToast("Failed to start recording")
-                e.printStackTrace()
-            }
-        }
+        wavRecorder = WavAudioRecorder(outputFile)
+        wavRecorder?.startRecording()
+        startTime = System.currentTimeMillis()
+        timerHandler.post(timerRunnable)
+        isRecording = true
+        isRecorded = false
+        updateUI("Recording...", R.drawable.ic_stop)
     }
 
     private fun stopRecording() {
-        mediaRecorder?.apply {
-            stop()
-            release()
-        }
-        mediaRecorder = null
+        wavRecorder?.stopRecording()
+        wavRecorder = null
         timerHandler.removeCallbacks(timerRunnable)
         isRecording = false
         isRecorded = true
@@ -226,12 +210,14 @@ class HomeFragment : Fragment() {
             stopRecording()
             discardRecording()
         }
+        wavRecorder?.stopRecording()
+        wavRecorder = null
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        mediaRecorder?.release()
-        mediaRecorder = null
+        wavRecorder?.stopRecording()
+        wavRecorder = null
         audioPlayerHelper.release()
         _binding = null
     }
