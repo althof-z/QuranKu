@@ -9,6 +9,18 @@ data class TajwidApiResponse(
     @SerializedName("idgham")
     val idgham: Boolean,
     
-    @SerializedName("ikfha")
-    val ikhfa: Boolean
+    @SerializedName("ikhfa")
+    val ikhfa: Boolean,
+    
+    @SerializedName("mad_prob")
+    val madProb: Double? = null,
+    
+    @SerializedName("idgham_prob")
+    val idghamProb: Double? = null,
+    
+    @SerializedName("ikhfa_prob")
+    val ikhfaProb: Double? = null,
+    
+    @SerializedName("file")
+    val file: String? = null
 ) 

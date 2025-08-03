@@ -10,6 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.quranku.data.repository.AudioRepository
 import com.example.quranku.databinding.FragmentHistoryBinding
+import com.example.quranku.util.FirstTimeSetupHelper
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -21,6 +22,7 @@ class HistoryFragment : Fragment() {
     private lateinit var audioAdapter: AudioAdapter
     private var currentHelper: AudioPlayerHelper? = null
     private lateinit var audioRepository: AudioRepository
+    private lateinit var setupHelper: FirstTimeSetupHelper
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,9 +35,18 @@ class HistoryFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         audioRepository = AudioRepository(requireContext())
+        setupHelper = FirstTimeSetupHelper(requireContext())
         setupRecyclerView()
         observeRecordings()
         updateStatistics()
+        
+        // Check if demo files need to be analyzed
+        if (!setupHelper.areDemoFilesAnalyzed() && setupHelper.checkDemoFilesExist()) {
+            setupHelper.manuallyAnalyzeDemoFiles()
+        }
+        
+        // Setup FAB for demo files (only show if demo files exist but not analyzed)
+        setupDemoFilesFab()
     }
 
     private fun setupRecyclerView() {
@@ -95,6 +106,11 @@ class HistoryFragment : Fragment() {
                 
                 binding.tvTotalRecordings.text = recordingsCount.toString()
                 binding.tvTotalDuration.text = formatDuration(totalDuration.toInt())
+                
+                // Log demo files status for debugging
+                android.util.Log.d("HistoryFragment", "Demo files status: ${setupHelper.getDemoFilesStatus()}")
+                android.util.Log.d("HistoryFragment", "Demo files exist: ${setupHelper.checkDemoFilesExist()}")
+                android.util.Log.d("HistoryFragment", "Raw resources exist: ${setupHelper.checkRawResourcesExist()}")
             } catch (e: Exception) {
                 e.printStackTrace()
             }
@@ -123,6 +139,34 @@ class HistoryFragment : Fragment() {
         super.onDestroyView()
         currentHelper?.release()
         _binding = null
+    }
+    
+    private fun setupDemoFilesFab() {
+        // Show FAB if demo files don't exist or haven't been analyzed
+        val demoFilesExist = setupHelper.checkDemoFilesExist()
+        val areAnalyzed = setupHelper.areDemoFilesAnalyzed()
+        
+        android.util.Log.d("HistoryFragment", "Demo files exist: $demoFilesExist, analyzed: $areAnalyzed")
+        
+        if (!demoFilesExist || !areAnalyzed) {
+            binding.fabDemoFiles.visibility = View.VISIBLE
+            
+            binding.fabDemoFiles.setOnClickListener {
+                if (!demoFilesExist) {
+                    // Reset and perform first-time setup
+                    setupHelper.resetFirstTimeSetup()
+                    setupHelper.performFirstTimeSetup()
+                    Toast.makeText(requireContext(), "Setting up demo files...", Toast.LENGTH_SHORT).show()
+                } else {
+                    // Just analyze existing files
+                    setupHelper.manuallyAnalyzeDemoFiles()
+                    Toast.makeText(requireContext(), "Analyzing demo files...", Toast.LENGTH_SHORT).show()
+                }
+                binding.fabDemoFiles.visibility = View.GONE
+            }
+        } else {
+            binding.fabDemoFiles.visibility = View.GONE
+        }
     }
 }
 

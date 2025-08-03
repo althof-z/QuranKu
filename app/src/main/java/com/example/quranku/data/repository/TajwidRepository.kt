@@ -41,8 +41,11 @@ class TajwidRepository(private val context: Context) {
                 val response = apiService.analyzeTajwid(audioPart)
                 
                 if (response.isSuccessful) {
-                    Result.success(response.body()!!)
+                    val responseBody = response.body()!!
+                    android.util.Log.d("TajwidRepository", "API Response from Uri: $responseBody")
+                    Result.success(responseBody)
                 } else {
+                    android.util.Log.e("TajwidRepository", "API call failed: ${response.code()}")
                     Result.failure(Exception("API call failed: ${response.code()}"))
                 }
             } catch (e: Exception) {
@@ -67,8 +70,11 @@ class TajwidRepository(private val context: Context) {
                 val response = apiService.analyzeTajwid(audioPart)
                 
                 if (response.isSuccessful) {
-                    Result.success(response.body()!!)
+                    val responseBody = response.body()!!
+                    android.util.Log.d("TajwidRepository", "API Response from File: $responseBody")
+                    Result.success(responseBody)
                 } else {
+                    android.util.Log.e("TajwidRepository", "API call failed: ${response.code()}")
                     Result.failure(Exception("API call failed: ${response.code()}"))
                 }
             } catch (e: Exception) {

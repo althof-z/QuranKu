@@ -9,6 +9,7 @@ import com.example.quranku.databinding.ActivityMainBinding
 import com.example.quranku.ui.history.HistoryFragment
 import com.example.quranku.ui.home.HomeFragment
 import com.example.quranku.ui.info.InfoFragment
+import com.example.quranku.util.FirstTimeSetupHelper
 
 class MainActivity : AppCompatActivity() {
     private var _binding: ActivityMainBinding? = null
@@ -19,6 +20,18 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        // Perform first-time setup if needed
+        val setupHelper = FirstTimeSetupHelper(this)
+        if (setupHelper.isFirstTimeSetup()) {
+            android.util.Log.d("MainActivity", "First time setup detected, initializing demo files...")
+            setupHelper.performFirstTimeSetup()
+        } else {
+            android.util.Log.d("MainActivity", "App already set up, demo files status: ${setupHelper.getDemoFilesStatus()}")
+        }
+        
+        // Debug first-time setup
+        debugFirstTimeSetup()
 
         // Set default fragment
         if (savedInstanceState == null) {
@@ -55,5 +68,23 @@ class MainActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+    }
+    
+    // Debug method to test first-time setup (can be called from adb)
+    private fun debugFirstTimeSetup() {
+        val setupHelper = FirstTimeSetupHelper(this)
+        android.util.Log.d("MainActivity", "Demo files status: ${setupHelper.getDemoFilesStatus()}")
+        android.util.Log.d("MainActivity", "Demo files exist: ${setupHelper.checkDemoFilesExist()}")
+        android.util.Log.d("MainActivity", "Raw resources exist: ${setupHelper.checkRawResourcesExist()}")
+        android.util.Log.d("MainActivity", "Is first time setup: ${setupHelper.isFirstTimeSetup()}")
+        
+        // Reset first-time setup for testing
+        setupHelper.resetFirstTimeSetup()
+        
+        // Trigger first-time setup again
+        if (setupHelper.isFirstTimeSetup()) {
+            android.util.Log.d("MainActivity", "Triggering first-time setup after reset...")
+            setupHelper.performFirstTimeSetup()
+        }
     }
 }

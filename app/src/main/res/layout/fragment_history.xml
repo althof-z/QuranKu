@@ -246,4 +246,18 @@
 
     </LinearLayout>
 
+    <!-- Floating Action Button for Demo Files -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_demo_files"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:src="@drawable/ic_mic"
+        android:contentDescription="Setup Demo Files"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:fabSize="normal"
+        app:tint="@color/white"
+        android:visibility="gone" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

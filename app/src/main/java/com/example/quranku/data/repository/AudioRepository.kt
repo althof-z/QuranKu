@@ -57,6 +57,7 @@ class AudioRepository(context: Context) {
             
             if (tajwidResult.isSuccess) {
                 val response = tajwidResult.getOrNull()!!
+                android.util.Log.d("AudioRepository", "Saving tajwid results to DB: ikhfa=${response.ikhfa}, idgham=${response.idgham}, mad=${response.mad}")
                 // Update database with real results
                 audioRecordingDao.updateTajwidResults(
                     id = recordingId,
@@ -65,7 +66,9 @@ class AudioRepository(context: Context) {
                     mad = response.mad,
                     isAnalyzing = false
                 )
+                android.util.Log.d("AudioRepository", "Successfully saved tajwid results to DB for recording $recordingId")
             } else {
+                android.util.Log.e("AudioRepository", "API failed for recording $recordingId: ${tajwidResult.exceptionOrNull()?.message}")
                 // API failed, mark as not analyzing but keep null results
                 audioRecordingDao.updateAnalyzingState(recordingId, false)
             }
