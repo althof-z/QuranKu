@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity() {
         }
         
         // Debug first-time setup
-        debugFirstTimeSetup()
+        // debugFirstTimeSetup() // Disabled to prevent resetting first-time setup on every launch
 
         // Set default fragment
         if (savedInstanceState == null) {
