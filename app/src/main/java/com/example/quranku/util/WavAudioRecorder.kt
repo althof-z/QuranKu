@@ -14,6 +14,7 @@ class WavAudioRecorder(
     private var audioRecord: AudioRecord? = null
     private var isRecording = false
     private var recordingThread: Thread? = null
+    @Volatile private var amplitudeListener: ((Int) -> Unit)? = null
 
     fun startRecording() {
         val bufferSize = AudioRecord.getMinBufferSize(sampleRate, channelConfig, audioFormat)
@@ -51,6 +52,18 @@ class WavAudioRecorder(
                 val read = audioRecord?.read(data, 0, bufferSize) ?: 0
                 if (read > 0) {
                     os.write(data, 0, read)
+                    // Compute peak amplitude from PCM 16-bit LE
+                    var peak = 0
+                    var i = 0
+                    while (i + 1 < read) {
+                        val lo = data[i].toInt() and 0xFF
+                        val hi = data[i + 1].toInt()
+                        val sample = (hi shl 8) or lo
+                        val abs = kotlin.math.abs(sample)
+                        if (abs > peak) peak = abs
+                        i += 2
+                    }
+                    amplitudeListener?.invoke(peak)
                 }
             }
         }
@@ -99,5 +112,9 @@ class WavAudioRecorder(
     private fun writeShort(header: ByteArray, offset: Int, value: Short) {
         header[offset] = (value.toInt() and 0xff).toByte()
         header[offset + 1] = ((value.toInt() shr 8) and 0xff).toByte()
+    }
+
+    fun setOnAmplitudeListener(listener: ((Int) -> Unit)?) {
+        amplitudeListener = listener
     }
 } 

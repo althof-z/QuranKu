@@ -24,6 +24,7 @@ import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
 import com.example.quranku.util.WavAudioRecorder
+import com.example.quranku.ui.home.WaveformView
 
 class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
@@ -33,6 +34,7 @@ class HomeFragment : Fragment() {
     private var outputFile: String = ""
     private var isRecording = false
     private var isRecorded = false
+    private var waveformView: WaveformView? = null
 
     private val RECORD_AUDIO_REQUEST_CODE = 200
     private var startTime = 0L
@@ -62,12 +64,15 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        waveformView = binding.waveformView
+        waveformView?.setPlaying(false)
         audioPlayerHelper = AudioPlayerHelper(requireContext(), binding.seekBar, binding.btnPlaySurah)
         audioRepository = AudioRepository(requireContext())
         setupListeners()
         updateUI("Status: Idle", R.drawable.ic_mic)
         return binding.root
     }
+
 
     private fun setupListeners() = binding.run {
         btnPlaySurah.setOnClickListener {
@@ -101,8 +106,17 @@ class HomeFragment : Fragment() {
         val fileName = "Recording_$timestamp"
         outputFile = "${dir?.absolutePath}/$fileName.wav"
 
+        waveformView?.clear()
         wavRecorder = WavAudioRecorder(outputFile)
+        wavRecorder?.setOnAmplitudeListener { amp ->
+            activity?.runOnUiThread {
+                waveformView?.addAmplitude(amp)
+            }
+        }
         wavRecorder?.startRecording()
+
+        waveformView?.setPlaying(true)
+
         startTime = System.currentTimeMillis()
         timerHandler.post(timerRunnable)
         isRecording = true
@@ -112,12 +126,18 @@ class HomeFragment : Fragment() {
 
     private fun stopRecording() {
         wavRecorder?.stopRecording()
+        wavRecorder?.setOnAmplitudeListener(null)
         wavRecorder = null
         timerHandler.removeCallbacks(timerRunnable)
         isRecording = false
         isRecorded = true
+
+        waveformView?.setPlaying(false)
+        waveformView?.clear()
+
         updateUI("Recording Stopped", R.drawable.ic_mic)
     }
+
 
     private fun saveRecordingToDatabase() {
         lifecycleScope.launch {
@@ -165,6 +185,10 @@ class HomeFragment : Fragment() {
         outputFile = ""
         timerHandler.removeCallbacks(timerRunnable)
         binding.tvTimer.text = "00:00"
+
+        waveformView?.setPlaying(false)
+        waveformView?.clear()
+
         updateUI("Status: Idle", R.drawable.ic_mic)
     }
 
@@ -210,7 +234,9 @@ class HomeFragment : Fragment() {
             stopRecording()
             discardRecording()
         }
+        waveformView?.setPlaying(false)
         wavRecorder?.stopRecording()
+        wavRecorder?.setOnAmplitudeListener(null)
         wavRecorder = null
     }
 
