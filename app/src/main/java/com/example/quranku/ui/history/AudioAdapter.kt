@@ -66,20 +66,12 @@ class AudioAdapter(
             }
         }
 
-        // Play button click handler
+        // Play button click handler (toggle play/pause)
         binding.btnPlay.setOnClickListener {
             val currentPosition = holder.getAdapterPosition()
             if (currentPosition != RecyclerView.NO_POSITION) {
-                if (currentlyPlayingPosition == currentPosition) {
-                    // Stop current playback
-                    currentlyPlayingPosition = -1
-                    updatePlayButton(binding.btnPlay, false)
-                } else {
-                    // Start new playback
-                    currentlyPlayingPosition = currentPosition
-                    updatePlayButton(binding.btnPlay, true)
-                    onPlayClicked(recording, binding.seekBar, binding.btnPlay)
-                }
+                onPlayClicked(recording, binding.seekBar, binding.btnPlay)
+                currentlyPlayingPosition = currentPosition
             }
         }
 
@@ -91,12 +83,7 @@ class AudioAdapter(
             }
         }
 
-        // Update visual state based on playing status
-        if (position == currentlyPlayingPosition) {
-            updatePlayButton(binding.btnPlay, true)
-        } else {
-            updatePlayButton(binding.btnPlay, false)
-        }
+        // Let the player control the icon dynamically; avoid forcing based on position
     }
 
     override fun getItemCount(): Int = recordings.size

@@ -21,6 +21,7 @@ class HistoryFragment : Fragment() {
 
     private lateinit var audioAdapter: AudioAdapter
     private var currentHelper: AudioPlayerHelper? = null
+    private var currentPlayingPath: String? = null
     private lateinit var audioRepository: AudioRepository
     private lateinit var setupHelper: FirstTimeSetupHelper
 
@@ -54,12 +55,18 @@ class HistoryFragment : Fragment() {
             requireContext(),
             emptyList(),
             onPlayClicked = { recording, seekBar, playButton ->
-                // Stop and release previous audio if playing
-                currentHelper?.release()
-                audioAdapter.stopCurrentPlayback()
-
-                currentHelper = AudioPlayerHelper(requireContext(), seekBar, playButton).also {
-                    it.togglePlayPause(recording.filePath)
+                val clickedPath = recording.filePath
+                if (currentHelper != null && currentPlayingPath == clickedPath) {
+                    // Toggle play/pause for the same item
+                    currentHelper?.togglePlayPause(clickedPath)
+                } else {
+                    // Different item: release previous, start new
+                    currentHelper?.release()
+                    audioAdapter.stopCurrentPlayback()
+                    currentHelper = AudioPlayerHelper(requireContext(), seekBar, playButton).also {
+                        it.togglePlayPause(clickedPath)
+                    }
+                    currentPlayingPath = clickedPath
                 }
             },
             onDeleteClicked = { recording ->
@@ -133,11 +140,13 @@ class HistoryFragment : Fragment() {
         // Stop playback when leaving the fragment
         currentHelper?.release()
         audioAdapter.stopCurrentPlayback()
+        currentPlayingPath = null
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         currentHelper?.release()
+        currentPlayingPath = null
         _binding = null
     }
     
