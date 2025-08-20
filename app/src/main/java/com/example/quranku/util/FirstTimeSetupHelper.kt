@@ -63,9 +63,9 @@ class FirstTimeSetupHelper(private val context: Context) {
     
     fun checkDemoFilesExist(): Boolean {
         val demoFiles = listOf(
-            "Demo_Surah_93_3.wav",
-            "Demo_Surah_160_3.wav",
-            "Demo_Surah_108_8.wav"
+            "Demo_Sound_93_3.wav",
+            "Demo_Sound_11_2.wav",
+            "Demo_Sound_10_10.wav"
         )
         
         val outputDir = context.getExternalFilesDir(Environment.DIRECTORY_MUSIC)
@@ -77,7 +77,7 @@ class FirstTimeSetupHelper(private val context: Context) {
     }
     
     fun checkRawResourcesExist(): Boolean {
-        val rawFiles = listOf("s93_3.wav", "s160_3.wav", "s108_8.wav")
+        val rawFiles = listOf("s93_3.wav", "s11_2.wav", "s10_10.wav")
         
         return rawFiles.all { fileName ->
             val resourceId = context.resources.getIdentifier(fileName, "raw", context.packageName)
@@ -117,9 +117,9 @@ class FirstTimeSetupHelper(private val context: Context) {
     
     private suspend fun copyDemoFiles() {
         val demoFiles = listOf(
-            "s93_3.wav" to "Demo_Surah_93_3.wav",
-            "s160_3.wav" to "Demo_Surah_160_3.wav",
-            "s108_8.wav" to "Demo_Surah_108_8.wav"
+            "s93_3.wav" to "Demo_Sound_93_3.wav",
+            "s11_2.wav" to "Demo_Sound_11_2.wav",
+            "s10_10.wav" to "Demo_Sound_10_10.wav"
         )
         
         val outputDir = context.getExternalFilesDir(Environment.DIRECTORY_MUSIC)?.apply { mkdirs() }
@@ -169,9 +169,9 @@ class FirstTimeSetupHelper(private val context: Context) {
         if (areDemoFilesAnalyzed()) return
         
         val demoFiles = listOf(
-            "Demo_Surah_93_3.wav",
-            "Demo_Surah_160_3.wav",
-            "Demo_Surah_108_8.wav"
+            "Demo_Sound_93_3.wav",
+            "Demo_Sound_11_2.wav",
+            "Demo_Sound_10_10.wav"
         )
         
         val outputDir = context.getExternalFilesDir(Environment.DIRECTORY_MUSIC)
