@@ -33,8 +33,8 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/ic_mic"
-                android:tint="#8BC34A"
-                android:layout_marginEnd="12dp" />
+                android:layout_marginEnd="12dp"
+                app:tint="#8BC34A" />
 
             <!-- File Name and Duration -->
             <LinearLayout
@@ -76,10 +76,10 @@
             android:layout_height="32dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:src="@drawable/ic_trash"
-            android:tint="#FF3B30"
             android:contentDescription="Delete recording"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="#FF3B30" />
 
         <!-- Audio Player Controls -->
         <LinearLayout

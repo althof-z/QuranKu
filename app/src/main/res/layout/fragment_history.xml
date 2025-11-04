@@ -84,8 +84,8 @@
                     android:layout_width="32dp"
                     android:layout_height="32dp"
                     android:src="@drawable/ic_mic"
-                    android:tint="#6C757D"
-                    android:layout_marginBottom="8dp" />
+                    android:layout_marginBottom="8dp"
+                    app:tint="#6C757D" />
 
                 <TextView
                     android:id="@+id/tv_total_recordings"
@@ -132,8 +132,8 @@
                     android:layout_width="32dp"
                     android:layout_height="32dp"
                     android:src="@drawable/ic_play"
-                    android:tint="#6C757D"
-                    android:layout_marginBottom="8dp" />
+                    android:layout_marginBottom="8dp"
+                    app:tint="#6C757D" />
 
                 <TextView
                     android:id="@+id/tv_total_duration"
@@ -222,8 +222,8 @@
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:src="@drawable/ic_mic"
-            android:tint="#D1D5DB"
-            android:layout_marginBottom="16dp" />
+            android:layout_marginBottom="16dp"
+            app:tint="#D1D5DB" />
 
         <TextView
             android:layout_width="wrap_content"

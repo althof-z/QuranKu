@@ -1,8 +1,10 @@
 package com.example.quranku.util
 
+import android.Manifest
 import android.media.AudioFormat
 import android.media.AudioRecord
 import android.media.MediaRecorder
+import androidx.annotation.RequiresPermission
 import java.io.*
 
 class WavAudioRecorder(
@@ -16,6 +18,7 @@ class WavAudioRecorder(
     private var recordingThread: Thread? = null
     @Volatile private var amplitudeListener: ((Int) -> Unit)? = null
 
+    @RequiresPermission(Manifest.permission.RECORD_AUDIO)
     fun startRecording() {
         val bufferSize = AudioRecord.getMinBufferSize(sampleRate, channelConfig, audioFormat)
         audioRecord = AudioRecord(
