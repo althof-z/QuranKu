@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "82877228090",
+    "project_id": "quranku-bd73c",
+    "storage_bucket": "quranku-bd73c.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:82877228090:android:02e450f2e5c01f5a0b0103",
+        "android_client_info": {
+          "package_name": "com.example.quranku"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAUHCgLEotj_KVYw4nRd_CLt70v_fPaoC4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
